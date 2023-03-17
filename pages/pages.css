@@ -1,0 +1,53 @@
+/* Yandex practicum 3rd page - Mesto*/
+@import url(../blocks/page/page.css);
+@import url(../blocks/pointer/pointer.css);
+
+/* HEADER----------------------------------- */
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+
+/* PROFILE---------------------------------- */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__image/profile__image.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__name-edit-button/profile__name-edit-button.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__button/_edit/profile__button_edit.css);
+@import url(../blocks/profile/__text/profile_text.css);
+@import url(../blocks/profile/__name-add-button/profile__name-add-button.css);
+@import url(../blocks/profile/__button/_add/profile__button_add.css);
+
+/* ELEMENTS--------------------------------- */
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__rectangle/elements__rectangle.css);
+@import url(../blocks/elements/__image/elements__image.css);
+@import url(../blocks/elements/__block/elements__block.css);
+@import url(../blocks/elements/__text/elements__text.css);
+@import url(../blocks/elements/__like/elements__like.css);
+
+/* FOOTER----------------------------------- */
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__text/footer__text.css);
+
+/* POPUP------------------------------------ */
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__opened/popup__opened.css);
+@import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__input/_name/popup__input_name.css);
+@import url(../blocks/popup/__line/popup__line.css);
+@import url(../blocks/popup/__input/_accupation/popup__input_accupation.css);
+@import url(../blocks/popup/__buttons/popup__buttons.css);
+@import url(../blocks/popup/__buttons/_submit/popup__buttons_submit.css);
+@import url(../blocks/popup/__buttons/_close/popup__buttons_close.css);
+
+
+
+
+
+
+
+
+

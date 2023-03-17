@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/index.css"> 
+  <title>Mesto</title>
+</head>
+<body>
+  <div class="page">
+  
+    <!-- HEADER -->
+    <header class="header">
+      <img class="header__logo" src="./images/__logo_white.svg" alt="логотип Место Россия">
+    </header>
+  
+    <!-- PROFILE -->
+    <section class="profile">
+      <div class="profile__avatar">
+        <img class="profile__image" src="./images/__avatar.png" alt="аватар">
+        <div class="profile__ellipse"></div>        
+      </div>
+      <div class="profile__name-add-button">
+        <div class="profile__info">
+          <div class="profile__name-edit-button">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__button_edit pointer"></button>
+          </div>
+          <p class="profile__text">Исследователь океана</p>        
+        </div>
+        <button class="profile__button_add pointer"></button>
+      </div>
+    </section>
+
+    <!-- ELEMENTS -->
+    <section class="elements">
+
+      <div class="elements__rectangle">
+        <img class="elements__image" src="./images/__image_karachevsk.png" alt="карачевск">
+        <div class="elements__block">
+          <p class="elements__text">Карачевск</p>
+          <button class="elements__like pointer"></button>
+        </div>
+      </div>
+
+      <div class="elements__rectangle">
+        <img class="elements__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
+        <div class="elements__block">
+          <p class="elements__text">Гора Эльбрус</p>
+          <button class="elements__like pointer"></button>
+        </div>
+      </div>
+
+      <div class="elements__rectangle">
+        <img class="elements__image" src="./images/__image_dombai.png" alt="домбай">
+        <div class="elements__block">
+          <p class="elements__text">Домбай</p>
+          <button class="elements__like pointer"></button>
+        </div>
+      </div>
+
+      <div class="elements__rectangle">
+        <img class="elements__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
+        <div class="elements__block">
+          <p class="elements__text">Гора Эльбрус</p>
+          <button class="elements__like pointer"></button>
+       </div>
+      </div>
+
+      <div class="elements__rectangle">
+        <img class="elements__image" src="./images/__image_dombai.png" alt="домбай">
+        <div class="elements__block">
+          <p class="elements__text">Домбай</p>
+          <button class="elements__like pointer"></button>
+        </div>
+      </div>
+   
+      <div class="elements__rectangle">
+        <img class="elements__image" src="./images/__image_karachevsk.png" alt="карачаево-черкессия">
+        <div class="elements__block">
+          <p class="elements__text">Карачаево-Черкессия</p>
+          <button class="elements__like pointer"></button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <section class="footer">
+      <p class="footer__text">&copy; 2023 Mesto Russia</p>
+    </section>
+
+<!--<section class="popup popup__opened"> -->
+    <section class="popup"> 
+      <form class="popup__form" action="index.html" method="post">
+
+        <fieldset class="popup__input">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <label for="user_id"></label>
+          <input type="text" class="popup__input_name" id="user_id"
+            name="user_name" placeholder="Жак-Ив Кусто">
+          <div class="popup__line"></div>
+          <label for="accupation_id"></label>
+          <input type="text" class="popup__input_accupation" 
+            id="accupation-id" name="user_accupation" 
+            placeholder="Исследователь океана">
+          <div class="popup__line"></div>
+        </fieldset>
+        
+        <fieldset class="popup__buttons">
+          <input type="submit" class="popup__buttons_submit pointer" value="Сохранить">
+          <button class="popup__buttons_close pointer">
+        </fieldset>
+
+      </form>      
+    </section>
+
+  </div>
+</body>
+</html>

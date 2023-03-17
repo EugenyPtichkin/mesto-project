@@ -1,0 +1,10 @@
+.profile__name-edit-button {
+  position: relative;
+  text-align: center;
+}
+@media screen and (max-width: 767px) {
+  .profile__name-edit-button {
+    width: 189px; /*как у profile__name*/
+    height: 26px;    
+  }
+}  

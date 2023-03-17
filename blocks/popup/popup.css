@@ -1,0 +1,20 @@
+.popup {
+  display: none;
+  position: fixed;
+  width: 430px;
+  height: 350px;   
+  left: calc(50% - 430px/2);
+  top: calc(50% - 350px/2);
+  opacity: 1;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+}
+@media screen and (max-width: 767px) {
+  .popup {
+    width: 282px;
+    height: 322px;   
+    left: calc(50% - 282px/2);
+    top: calc(50% - 322px/2);
+  }
+}

@@ -1,0 +1,17 @@
+.header {
+  margin: 0;
+  padding: 0;
+  padding-top: 45px;  
+  padding-bottom: 41px;
+  min-width: min(calc(1280px - 2*200px), calc(100vw - 2*200px));
+  box-sizing: border-box;
+  color: #FFF;
+  border-bottom: 1px solid rgba(84, 84, 84, 70%);   height: 120px;
+}
+@media screen and (max-width: 1279px) {
+  .header {    
+    padding-top: max(28px, calc(28px + 17*(100vw - 320px)/960));        /*28px + (45px-28px)*(100vw-320px)/(1280px-320px)*/    
+    padding-bottom: max(31.6px, calc(31.6px + 9.4*(100vw - 320px)/960));/*31.6px + (41px-31.6px)*(100vw-320px)/(1280px-320px)*/
+    min-width: max(calc(320px - 2*27px), calc(100vw - 2*(27px + 173*(100vw - 320px)/960)));   /*100vw - 2*padding-left*/  
+  }
+}

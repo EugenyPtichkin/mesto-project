@@ -1,0 +1,15 @@
+.popup__buttons {
+  margin: 0px;
+  padding: 0px;
+  padding-top: 48px;
+  border: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+@media screen and (max-width: 767px) {
+  .popup__buttons {
+    padding-top: 45px;
+  }
+}

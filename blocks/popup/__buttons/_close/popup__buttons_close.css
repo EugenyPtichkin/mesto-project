@@ -1,0 +1,23 @@
+.popup__buttons_close {
+  position: absolute;
+  bottom: calc(251px + 50px + 32px/2);
+  right: calc(0px - 36px - 8px - 32px);
+  width: 32px;
+  height: 32px; 
+  background-image: url(../../../../images/__сlose_icon.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
+  border: 1px;
+}
+@media screen and (max-width: 767px) {
+  .popup__buttons_close {
+    bottom: calc(267px + 46px + 20px/2);
+    right: calc(0px - 22px);
+    width: 20px;
+    height: 20px;   
+  }
+}
+.popup__buttons_close:hover {
+  opacity: 0.6;
+}
