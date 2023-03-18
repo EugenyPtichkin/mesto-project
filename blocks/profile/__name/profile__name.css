@@ -1,6 +1,7 @@
 .profile__name {
   margin: 0;
   padding: 0;
+  padding-right: 18px;
   text-align: left;
   height: 39px;
   font-weight: 500;
@@ -9,7 +10,8 @@
 }
 @media screen and (max-width: 767px) {
   .profile__name {
-    text-align: center;
+    padding-left: calc(18px + 10px);
+    padding-right: 10px;
     width: 189px;
     height: 26px;
     font-weight: 500;

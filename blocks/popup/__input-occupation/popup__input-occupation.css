@@ -1,6 +1,4 @@
-.popup__input_accupation{
-  margin: 0;
-  padding: 0;
+.popup__input-occupation{
   margin-top: 30px; /*с padding-top расширяется поле ввода*/
   font-size: 14px;
   width: 100%;

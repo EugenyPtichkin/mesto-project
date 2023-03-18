@@ -1,26 +1,26 @@
-.profile__button_add {
+.profile__button-add {
   justify-self: end;
   width: 150px;
   height: 50px; 
   border: 2px solid #FFF;
   background-color: #000;
-  background-image: url(../../../../images/__add_icon.svg);
+  background-image: url(../../../images/__add_icon.svg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 22px 22px;
   opacity: 1;
 }
 @media screen and (max-width: 1024px) {
-  .profile__button_add {
+  .profile__button-add {
     width: calc(40px + 110*(100vw - 768px)/256);
   }
 }
 @media screen and (max-width: 767px) {
-  .profile__button_add{
+  .profile__button-add{
     background-size: 16px 16px;
     width: 282px;
   }
 }
-.profile__button_add:hover {
+.profile__button-add:hover {
   opacity: 0.6;
 }

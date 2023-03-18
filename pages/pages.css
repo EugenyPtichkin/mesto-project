@@ -1,4 +1,5 @@
 /* Yandex practicum 3rd page - Mesto*/
+@import url(../blocks/body/body.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/pointer/pointer.css);
 
@@ -13,10 +14,10 @@
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name-edit-button/profile__name-edit-button.css);
 @import url(../blocks/profile/__name/profile__name.css);
-@import url(../blocks/profile/__button/_edit/profile__button_edit.css);
+@import url(../blocks/profile/__button-edit/profile__button-edit.css);
 @import url(../blocks/profile/__text/profile_text.css);
 @import url(../blocks/profile/__name-add-button/profile__name-add-button.css);
-@import url(../blocks/profile/__button/_add/profile__button_add.css);
+@import url(../blocks/profile/__button-add/profile__button-add.css);
 
 /* ELEMENTS--------------------------------- */
 @import url(../blocks/elements/elements.css);
@@ -32,16 +33,17 @@
 
 /* POPUP------------------------------------ */
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/__opened/popup__opened.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/__input/_name/popup__input_name.css);
+@import url(../blocks/popup/__input-name/popup__input-name.css);
 @import url(../blocks/popup/__line/popup__line.css);
-@import url(../blocks/popup/__input/_accupation/popup__input_accupation.css);
+@import url(../blocks/popup/__input-occupation/popup__input-occupation.css);
 @import url(../blocks/popup/__buttons/popup__buttons.css);
-@import url(../blocks/popup/__buttons/_submit/popup__buttons_submit.css);
-@import url(../blocks/popup/__buttons/_close/popup__buttons_close.css);
+@import url(../blocks/popup/__button-submit/popup__button-submit.css);
+@import url(../blocks/popup/__button-close/popup__button-close.css);
 
 
 

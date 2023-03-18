@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./styles/index.css"> 
   <title>Mesto</title>
 </head>
-<body>
+<body class="body">
   <div class="page">
   
     <!-- HEADER -->
@@ -25,22 +25,22 @@
         <div class="profile__info">
           <div class="profile__name-edit-button">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__button_edit pointer"></button>
+            <button type="button" class="profile__button-edit pointer"></button>
           </div>
           <p class="profile__text">Исследователь океана</p>        
         </div>
-        <button class="profile__button_add pointer"></button>
+        <button type="button" class="profile__button-add pointer"></button>
       </div>
     </section>
 
     <!-- ELEMENTS -->
-    <section class="elements">
+    <section class="elements" aria-label="elements">
 
       <div class="elements__rectangle">
         <img class="elements__image" src="./images/__image_karachevsk.png" alt="карачевск">
         <div class="elements__block">
           <p class="elements__text">Карачевск</p>
-          <button class="elements__like pointer"></button>
+          <button type="button" class="elements__like pointer"></button>
         </div>
       </div>
 
@@ -48,7 +48,7 @@
         <img class="elements__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
         <div class="elements__block">
           <p class="elements__text">Гора Эльбрус</p>
-          <button class="elements__like pointer"></button>
+          <button type="button" class="elements__like pointer"></button>
         </div>
       </div>
 
@@ -56,7 +56,7 @@
         <img class="elements__image" src="./images/__image_dombai.png" alt="домбай">
         <div class="elements__block">
           <p class="elements__text">Домбай</p>
-          <button class="elements__like pointer"></button>
+          <button type="button" class="elements__like pointer"></button>
         </div>
       </div>
 
@@ -64,7 +64,7 @@
         <img class="elements__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
         <div class="elements__block">
           <p class="elements__text">Гора Эльбрус</p>
-          <button class="elements__like pointer"></button>
+          <button type="button" class="elements__like pointer"></button>
        </div>
       </div>
 
@@ -72,7 +72,7 @@
         <img class="elements__image" src="./images/__image_dombai.png" alt="домбай">
         <div class="elements__block">
           <p class="elements__text">Домбай</p>
-          <button class="elements__like pointer"></button>
+          <button type="button" class="elements__like pointer"></button>
         </div>
       </div>
    
@@ -80,40 +80,42 @@
         <img class="elements__image" src="./images/__image_karachevsk.png" alt="карачаево-черкессия">
         <div class="elements__block">
           <p class="elements__text">Карачаево-Черкессия</p>
-          <button class="elements__like pointer"></button>
+          <button type="button" class="elements__like pointer"></button>
         </div>
       </div>
 
     </section>
 
     <!-- FOOTER -->
-    <section class="footer">
+    <section class="footer" aria-label="footer">
       <p class="footer__text">&copy; 2023 Mesto Russia</p>
     </section>
 
-<!--<section class="popup popup__opened"> -->
+<!--<section class="popup popup_opened"> -->
     <section class="popup"> 
-      <form class="popup__form" action="index.html" method="post">
+      <form class="popup__form" action="./index.html" method="post">
+        <div class="popup__container">
 
         <fieldset class="popup__input">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <label for="user_id"></label>
-          <input type="text" class="popup__input_name" id="user_id"
+          <label for="user-id"></label>
+          <input type="text" class="popup__input-name" id="user-id"
             name="user_name" placeholder="Жак-Ив Кусто">
           <div class="popup__line"></div>
-          <label for="accupation_id"></label>
-          <input type="text" class="popup__input_accupation" 
-            id="accupation-id" name="user_accupation" 
+          <label for="occupation-id"></label>
+          <input type="text" class="popup__input-occupation" 
+            id="occupation-id" name="user_occupation" 
             placeholder="Исследователь океана">
           <div class="popup__line"></div>
         </fieldset>
         
         <fieldset class="popup__buttons">
-          <input type="submit" class="popup__buttons_submit pointer" value="Сохранить">
-          <button class="popup__buttons_close pointer">
+          <input type="submit" class="popup__button-submit pointer" value="Сохранить">
+          <button type="button" class="popup__button-close pointer"></button>
         </fieldset>
-
-      </form>      
+        
+        </div>
+      </form>          
     </section>
 
   </div>

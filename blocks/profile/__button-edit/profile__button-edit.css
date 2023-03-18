@@ -1,23 +1,23 @@
-.profile__button_edit {
-  position: absolute;
+.profile__button-edit {
+/*  position: absolute;
   bottom: calc(0px - 3px);
-  right: calc(0px - 18px - 24px);
+  right: calc(0px - 18px - 24px);*/
   width: 24px;
   height: 24px; 
   border: 1px solid #FFF;
-  background-image: url(../../../../images/__edit_icon.svg);
+  background-image: url(../../../images/__edit_icon.svg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 10px 10px;
   background-color: #000;
 }
 @media screen and (max-width: 767px) {
-  .profile__button_edit {
-    right: calc(0px - 18px - 10px);
+  .profile__button-edit {
+/*    right: calc(0px - 18px - 10px);*/
     width: 18px;
     height: 18px; 
   }
 }
-.profile__button_edit:hover {
+.profile__button-edit:hover {
   opacity: 0.6;
 }
