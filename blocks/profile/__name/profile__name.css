@@ -10,6 +10,9 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 294px;
+  /*max-height: 42px;*/ /*выравнивает текст, но обрезает букву "у"*/
+  /*vertical-align: bottom;*/ /*не опускает текст ниже буквы "у" */
+  /*тогда вижу решение только в подборe margin-bottom у кнопки редактирования профиля */
 }
 
 @media screen and (max-width: 767px) {
@@ -19,5 +22,7 @@
     max-width: 226px;
     font-size: 27px;
     line-height: 33px;
+    /*max-height: 27px;*/  /*выравнивает текст, но обрезает букву "у"*/
+    /*overflow: visible;*/ /*выводит низ буквы "у", но вместе с ним всю строку справа до конца экрана*/
   }
 }

@@ -7,12 +7,16 @@
   background-position: center center;
   background-size: 10px 10px;
   background-color: transparent;
+  /*подбор высоты выступающей буквы "у" при высоте шрифта 42px из макета Фигмы*/
+  margin-bottom: 8.5px;
 }
 
 @media screen and (max-width: 767px) {
   .profile__button-edit {
     width: 18px;
     height: 18px;
+    /*подбор высоты выступающей буквы "у" при высоте шрифта 27px из макета Фигмы*/
+    margin-bottom: 5.5px; 
   }
 }
 

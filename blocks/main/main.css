@@ -1,0 +1,4 @@
+.main {
+  /*sticky footer больше не работает*/
+  flex: 1;
+}
