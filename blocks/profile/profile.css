@@ -1,24 +1,26 @@
 .profile {
-    margin: 0;
-    padding: 0;
-    padding-top: 40px;  
-    padding-bottom: 51px;
-    min-width: min(calc(1280px - 2*200px), calc(100vw - 2*200px));
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: #FFF;  
+  margin: 0;
+  padding: 0;
+  padding-top: 40px;
+  padding-bottom: 51px;
+  min-width: min(calc(1280px - 2*200px), calc(100vw - 2*200px));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #FFF;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile {
+    /*плавное центрирование: 100vw - 2*padding-left*/
+    min-width: max(calc(320px - 2*27px), calc(100vw - 2*(27px + 173*(100vw - 320px)/960)));
   }
-  @media screen and (max-width: 1279px) {
-    .profile {    
-      padding-top: max(42px, calc(42px - 2*(100vw - 320px)/960));    /*42px + (40px-42px)*(100vw-320px)/(1280px-320px)*/    
-      padding-bottom: max(36px, calc(36px + 15*(100vw - 320px)/960));/*36px + (51px-36px)*(100vw-320px)/(1280px-320px)*/
-      min-width: max(calc(320px - 2*27px), calc(100vw - 2*(27px + 173*(100vw - 320px)/960)));   /*100vw - 2*padding-left*/  
-    }
+}
+
+@media screen and (max-width: 767px) {
+  .profile {
+    flex-direction: column;
   }
-  @media screen and (max-width: 767px) {
-    .profile {    
-      flex-direction: column;
-    }
-  }
+}

@@ -1,123 +1,122 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles/index.css"> 
+  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
+
 <body class="body">
   <div class="page">
-  
     <!-- HEADER -->
     <header class="header">
       <img class="header__logo" src="./images/__logo_white.svg" alt="логотип Место Россия">
     </header>
-  
+
     <!-- PROFILE -->
     <section class="profile">
       <div class="profile__avatar">
         <img class="profile__image" src="./images/__avatar.png" alt="аватар">
-        <div class="profile__ellipse"></div>        
       </div>
       <div class="profile__name-add-button">
         <div class="profile__info">
           <div class="profile__name-edit-button">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" class="profile__button-edit pointer"></button>
+            <h1 class="profile__name">Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто
+              Жак-Ив Кусто Жак-Ив Кусто</h1>
+            <button type="button" class="profile__button-edit pointer" aria-label="редактрировать профиль"></button>
           </div>
-          <p class="profile__text">Исследователь океана</p>        
+          <p class="profile__text">Исследователь океана Исследователь океана Исследователь океана Исследователь океана
+            Исследователь океана</p>
         </div>
-        <button type="button" class="profile__button-add pointer"></button>
+        <button type="button" class="profile__button-add pointer" aria-label="добавить профиль"></button>
       </div>
     </section>
 
     <!-- ELEMENTS -->
-    <section class="elements" aria-label="elements">
+    <section class="cards" aria-label="интересные места">
 
-      <div class="elements__rectangle">
-        <img class="elements__image" src="./images/__image_karachevsk.png" alt="карачевск">
-        <div class="elements__block">
-          <p class="elements__text">Карачевск</p>
-          <button type="button" class="elements__like pointer"></button>
+      <div class="card">
+        <img class="card__image" src="./images/__image_karachevsk.png" alt="карачевск">
+        <div class="card__block">
+          <h2 class="card__text">Карачевск</h2>
+          <button type="button" class="card__like pointer" aria-label="нравится карачевск"></button>
         </div>
       </div>
 
-      <div class="elements__rectangle">
-        <img class="elements__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
-        <div class="elements__block">
-          <p class="elements__text">Гора Эльбрус</p>
-          <button type="button" class="elements__like pointer"></button>
+      <div class="card">
+        <img class="card__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
+        <div class="card__block">
+          <h2 class="card__text">Гора Эльбрус</h2>
+          <button type="button" class="card__like pointer" aria-label="нравится гора эльбрус"></button>
         </div>
       </div>
 
-      <div class="elements__rectangle">
-        <img class="elements__image" src="./images/__image_dombai.png" alt="домбай">
-        <div class="elements__block">
-          <p class="elements__text">Домбай</p>
-          <button type="button" class="elements__like pointer"></button>
+      <div class="card">
+        <img class="card__image" src="./images/__image_dombai.png" alt="домбай">
+        <div class="card__block">
+          <h2 class="card__text">Домбай</h2>
+          <button type="button" class="card__like pointer" aria-label="нравится домбай"></button>
         </div>
       </div>
 
-      <div class="elements__rectangle">
-        <img class="elements__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
-        <div class="elements__block">
-          <p class="elements__text">Гора Эльбрус</p>
-          <button type="button" class="elements__like pointer"></button>
-       </div>
-      </div>
-
-      <div class="elements__rectangle">
-        <img class="elements__image" src="./images/__image_dombai.png" alt="домбай">
-        <div class="elements__block">
-          <p class="elements__text">Домбай</p>
-          <button type="button" class="elements__like pointer"></button>
+      <div class="card">
+        <img class="card__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
+        <div class="card__block">
+          <h2 class="card__text">Гора Эльбрус</h2>
+          <button type="button" class="card__like pointer" aria-label="нравится гора эльбрус"></button>
         </div>
       </div>
-   
-      <div class="elements__rectangle">
-        <img class="elements__image" src="./images/__image_karachevsk.png" alt="карачаево-черкессия">
-        <div class="elements__block">
-          <p class="elements__text">Карачаево-Черкессия</p>
-          <button type="button" class="elements__like pointer"></button>
+
+      <div class="card">
+        <img class="card__image" src="./images/__image_dombai.png" alt="домбай">
+        <div class="card__block">
+          <h2 class="card__text">Домбай</h2>
+          <button type="button" class="card__like pointer" aria-label="нравится домбай"></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card__image" src="./images/__image_karachevsk.png" alt="карачаево-черкессия">
+        <div class="card__block">
+          <h2 class="card__text">Карачаево-Черкессия</h2>
+          <button type="button" class="card__like pointer" aria-label="нравится карачаево черкессия"></button>
         </div>
       </div>
 
     </section>
 
-    <!-- FOOTER -->
-    <section class="footer" aria-label="footer">
-      <p class="footer__text">&copy; 2023 Mesto Russia</p>
-    </section>
-
-<!--<section class="popup popup_opened"> -->
-    <section class="popup"> 
-      <form class="popup__form" action="./index.html" method="post">
-        <div class="popup__container">
-
-        <fieldset class="popup__input">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <label for="user-id"></label>
-          <input type="text" class="popup__input-name" id="user-id"
-            name="user_name" placeholder="Жак-Ив Кусто">
-          <div class="popup__line"></div>
-          <label for="occupation-id"></label>
-          <input type="text" class="popup__input-occupation" 
-            id="occupation-id" name="user_occupation" 
-            placeholder="Исследователь океана">
-          <div class="popup__line"></div>
-        </fieldset>
-        
-        <fieldset class="popup__buttons">
-          <input type="submit" class="popup__button-submit pointer" value="Сохранить">
-          <button type="button" class="popup__button-close pointer"></button>
-        </fieldset>
-        
-        </div>
-      </form>          
-    </section>
+    <!--<div class="popup popup_opened"> -->
+    <div class="popup popup_opened">
+      <div class="popup__container-close">
+        <form class="popup__form-close" action="./index.html" method="post" name="close_form">
+          <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
+        </form>
+      </div>
+      <div class="popup__container">
+        <form class="popup__form" action="./index.html" method="post" name="main_form">
+          <div class="popup__inner-box">
+            <fieldset class="popup__input">
+              <h2 class="popup__title">Редактировать профиль</h2>
+              <input type="text" class="popup__input popup__input_field_name" id="user-id" name="user_name" placeholder="Ваше имя">
+              <input type="text" class="popup__input popup__input_field_occupation" id="occupation-id" name="user_occupation"
+                placeholder="Ваш род занятий">
+            </fieldset>
+            <input type="submit" class="popup__button-submit pointer" value="Сохранить" name="submit_button">
+          </div>
+        </form>
+      </div>
+    </div>
 
   </div>
+
+  <!-- FOOTER sticky -->
+  <section class="footer" aria-label="нижний колонтитул">
+    <p class="footer__text">&copy; 2023 Mesto Russia</p>
+  </section>
+
 </body>
+
 </html>

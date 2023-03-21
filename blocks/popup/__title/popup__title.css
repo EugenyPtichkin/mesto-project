@@ -1,16 +1,21 @@
 .popup__title {
   margin: 0;
-  padding: 0;
+  padding: 0;  
   padding-top: 34px;
-  padding-bottom: 54px;
+  padding-bottom: calc(54px - 2px); /*2px-рамка поля input*/
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
+  height: 23px;
 }
+
 @media screen and (max-width: 767px) {
   .popup__title {
-    padding: 25px 0px 75px;
+    padding: 0;  
+    padding-top: 25px;
+    padding-bottom: calc(75px - 1px);
     font-size: 18px;
     line-height: 22px;
+    height: 22px;
   }
 }

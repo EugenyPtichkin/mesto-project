@@ -1,16 +1,15 @@
-.profile__info {  
-  height: 73px;  
+.profile__info {
   color: #FFF;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 @media screen and (max-width: 767px) {
-  .profile__info {  
+  .profile__info {
     align-items: center;
     min-width: 282px;
-    height: 54px;
     padding-top: 22.25px;
     padding-bottom: 36px;
-  }   
+  }
 }

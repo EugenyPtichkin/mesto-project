@@ -6,15 +6,25 @@
   color: #FFF;
   font-size: 18px;
   line-height: 22px;
+  margin-bottom: 37px;
+  /*расширение формы снизу*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0px;
 }
+
 .popup__button-submit:hover {
   opacity: 0.8;
 }
+
 @media screen and (max-width: 767px) {
   .popup__button-submit {
     width: 238px;
     height: 46px;
     font-size: 14px;
     line-height: 27px;
+    margin-bottom: 25px;
   }
 }

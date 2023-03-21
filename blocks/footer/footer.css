@@ -1,17 +1,21 @@
 .footer {
+  flex-shrink: 0; /*sticky footer*/
   margin: 0;
   padding: 0;
-  padding-left: 200px;
   padding-bottom: 60px;
-  min-width: min(1280px, 100%);
+  /*как у header, т.к. footer более не в секции page, которая с flex-grow=1*/
+  min-width: min(calc(1280px - 2*200px), calc(100vw - 2*200px));
   display: flex;
   flex-direction: row;
   justify-content: start;
   box-sizing: border-box;
 }
+
 @media screen and (max-width: 1279px) {
   .footer {
-    padding-left: max(19px, calc(19px + 181*(100vw - 320px)/960));  /*19px + (200px-19px)*(100vw-320px)/(1280px-320px)*/
-    padding-bottom: max(17px, calc(17px + 43*(100vw - 320px)/960)); /*17px + (60px-17px)*(100vw-320px)/(1280px-320px)*/
+    /*17px + (60px-17px)*(100vw-320px)/(1280px-320px)*/
+    padding-bottom: max(17px, calc(17px + 43*(100vw - 320px)/960));
+    /*плавное центрирование от vw: 100vw - 2*padding-left*/
+    min-width: max(calc(320px - 2*19px), calc(100vw - 2*(19px + 181*(100vw - 320px)/960)));
   }
 }
