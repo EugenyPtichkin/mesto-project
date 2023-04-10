@@ -7,7 +7,7 @@
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
-  max-width: calc((1280px - 2*(200px + 17px))/3 - 21px - (2*20px + 22px));
+  max-width: calc((1280px - 2*200px - 2*17px)/3 - 21px - (2*20px + 22px));
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -15,12 +15,13 @@
 
 @media screen and (max-width: 1279px) {
   .card__text {
-    max-width: calc(max(282px, (100vw - 2*200px + 17px)/2) - 21px - (2*20px + 22px));
+/*  max-width: calc( (100vw - 2*200px - 17px)/2 - 21px - 2*20px - 22px);*/
+    max-width: calc( (100vw - 17px)/2 - 21px - 2*20px - 22px);
   }
 }
 
 @media screen and (max-width: 767px) {
   .card__text {
-    max-width: calc(max(282px, 100vw - 2*(200px + 17px)) - 21px - (2*20px + 22px));
+    max-width: max(282px, calc(100vw - 2*19px - 21px - 2*15px - 22px));
   }
 }

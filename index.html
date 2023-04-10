@@ -27,12 +27,10 @@
         <div class="profile__name-add-button">
           <div class="profile__info">
             <div class="profile__name-edit-button">
-              <h1 class="profile__name">Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто Жак-Ив Кусто
-                Жак-Ив Кусто Жак-Ив Кусто</h1>
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button type="button" class="profile__button-edit pointer" aria-label="редактрировать профиль"></button>
             </div>
-            <p class="profile__text">Исследователь океана Исследователь океана Исследователь океана Исследователь океана
-              Исследователь океана</p>
+            <p class="profile__text">Исследователь океана</p>
           </div>
           <button type="button" class="profile__button-add pointer" aria-label="добавить профиль"></button>
         </div>
@@ -42,29 +40,29 @@
       <section class="cards" aria-label="интересные места">
 
         <div class="card">
-          <img class="card__image" src="./images/__image_karachevsk.png" alt="карачевск">
+          <img class="card__image" src="./images/__olga-kovalski-ZoZBfG_Vrzg-unsplash.jpg" alt="москва">
           <div class="card__block">
-            <h2 class="card__text">Карачевск</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится карачевск"></button>
+            <h2 class="card__text">Москва</h2>
+            <button type="button" class="card__like pointer" aria-label="нравится красная площадь"></button>
           </div>
         </div>
 
         <div class="card">
-          <img class="card__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
+          <img class="card__image" src="./images/__victor-malyushev-jDQ7goYMKgc-unsplash.jpg" alt="санкт-петербург">
           <div class="card__block">
-            <h2 class="card__text">Гора Эльбрус</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится гора эльбрус"></button>
+            <h2 class="card__text">Санкт-Петербург</h2>
+            <button type="button" class="card__like pointer" aria-label="нравится санкт-петербург"></button>
           </div>
         </div>
 
         <div class="card">
-          <img class="card__image" src="./images/__image_dombai.png" alt="домбай">
+          <img class="card__image" src="./images/__georgy-trofimov-8wsxtCoyIRs-unsplash.jpg" alt="великий новгород">
           <div class="card__block">
-            <h2 class="card__text">Домбай</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится домбай"></button>
+            <h2 class="card__text">Великий Новгород</h2>
+            <button type="button" class="card__like pointer" aria-label="нравится великий новгород"></button>
           </div>
         </div>
-
+        
         <div class="card">
           <img class="card__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
           <div class="card__block">
@@ -111,13 +109,26 @@
               <input type="text" class="popup__input popup__input_field_occupation" id="occupation-id"
                 name="user_occupation" placeholder="Ваш род занятий">
             </fieldset>
-            <button type="submit" class="popup__button-submit pointer" value="1" name="submit_button" aria-label="сохранить профиль">Сохранить</button>
+            <button type="submit" class="popup__button-submit pointer" value="1" name="submit_button"
+              aria-label="сохранить профиль">Сохранить</button>
           </div>
         </form>
       </div>
     </div>
 
   </div>
+  
+  <template id="card-template">
+    <div class="card">
+      <img class="card__image" src="" alt="темплейт">
+      <div class="card__block">
+        <h2 class="card__text">Темплейт</h2>
+        <button type="button" class="card__like pointer" aria-label="нравится темплейт"></button>
+      </div>
+    </div>
+  </template>
+
+  <script src="./popup.js"></script>
 </body>
 
 </html>

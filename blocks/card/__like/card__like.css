@@ -22,3 +22,8 @@
   opacity: 1;
   background-image: url(../../../images/__like_active.svg);
 }
+
+.card__like-active {
+  opacity: 1;
+  background-image: url(../../../images/__like_active.svg);
+}
