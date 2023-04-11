@@ -43,7 +43,7 @@
           <img class="card__image" src="./images/__olga-kovalski-ZoZBfG_Vrzg-unsplash.jpg" alt="москва">
           <div class="card__block">
             <h2 class="card__text">Москва</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится красная площадь"></button>            
+            <button type="button" class="card__like pointer" aria-label="нравится красная площадь"></button>
           </div>
           <button type="button" class="card__delete pointer" aria-label="удалить красную площадь"></button>
         </div>
@@ -52,7 +52,7 @@
           <img class="card__image" src="./images/__victor-malyushev-jDQ7goYMKgc-unsplash.jpg" alt="санкт-петербург">
           <div class="card__block">
             <h2 class="card__text">Санкт-Петербург</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится санкт-петербург"></button>            
+            <button type="button" class="card__like pointer" aria-label="нравится санкт-петербург"></button>
           </div>
           <button type="button" class="card__delete pointer" aria-label="удалить санкт-петербург"></button>
         </div>
@@ -65,12 +65,12 @@
           </div>
           <button type="button" class="card__delete pointer" aria-label="удалить великий новгород"></button>
         </div>
-        
+
         <div class="card">
           <img class="card__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
           <div class="card__block">
             <h2 class="card__text">Гора Эльбрус</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится гора эльбрус"></button>            
+            <button type="button" class="card__like pointer" aria-label="нравится гора эльбрус"></button>
           </div>
           <button type="button" class="card__delete pointer" aria-label="удалить гору эльбрус"></button>
         </div>
@@ -79,7 +79,7 @@
           <img class="card__image" src="./images/__image_dombai.png" alt="домбай">
           <div class="card__block">
             <h2 class="card__text">Домбай</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится домбай"></button>            
+            <button type="button" class="card__like pointer" aria-label="нравится домбай"></button>
           </div>
           <button type="button" class="card__delete pointer" aria-label="удалить домбай"></button>
         </div>
@@ -88,7 +88,7 @@
           <img class="card__image" src="./images/__image_karachevsk.png" alt="карачаево-черкессия">
           <div class="card__block">
             <h2 class="card__text">Карачаево-Черкессия</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится карачаево черкессия"></button>            
+            <button type="button" class="card__like pointer" aria-label="нравится карачаево черкессия"></button>
           </div>
           <button type="button" class="card__delete pointer" aria-label="удалить карачаево черкуссию"></button>
         </div>
@@ -102,7 +102,6 @@
     </footer>
 
     <!-- POPUP -->
-    <!--<div class="popup popup_opened"> -->
     <div class="popup">
       <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
       <div class="popup__container">
@@ -122,17 +121,25 @@
       </div>
     </div>
 
+    <!-- CARD-POPUP -->
+    <div class="popup-card">
+      <button type="button" class="popup-card__button-close pointer" aria-label="закрыть картинку"></button>
+      <img class="popup-card__image" src="" alt="">
+      <h2 class="popup-card__title">Название места</h2>
+    </div>
+
   </div>
   
+  <!-- CARD-TEMPLATE -->
   <template id="card-template">
     <div class="card">
       <img class="card__image" src="" alt="темплейт">
       <div class="card__block">
         <h2 class="card__text">Темплейт</h2>
-        <button type="button" class="card__like pointer" aria-label="нравится темплейт"></button>        
-      </div>      
-      <button type="button" class="card__delete pointer" aria-label="удалить темплейт"></button>    
-    </div>    
+        <button type="button" class="card__like pointer" aria-label="нравится темплейт"></button>
+      </div>
+      <button type="button" class="card__delete pointer" aria-label="удалить темплейт"></button>
+    </div>
   </template>
 
   <script src="./components/constants.js"></script>

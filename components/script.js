@@ -145,3 +145,47 @@ deleteBtns.forEach(item => {
         evt.target.closest('.card').remove();
     });
 });
+
+
+
+/* Открытие окна карточки при нажатии на 1 картинку */
+/*const openCard = document.querySelector('.card__image');*/
+/* Открытие окна карточки при нажатии на любую из картинок */
+const openCards =[...document.querySelectorAll('.card__image')];
+/* Закрытие окна карточки */
+const closeCard = document.querySelector('.popup-card__button-close');
+/* Ссылка на окно карточки */
+const popupCard = document.querySelector('.popup-card');
+/* Свойства исходной картинки */
+/*const cardImageLink = document.querySelector('.card__image');
+const cardImageAlt = document.querySelector('.card__image');
+const cardImageText = document.querySelector('.card__text');*/
+/* Свойства картинки в zoom`е */
+const zoomImage = document.querySelector('.popup-card__image'); 
+const zoomTitle = document.querySelector('.popup-card__title'); 
+
+const openCardZoom = function () {
+/*  zoomImage.src = cardImageLink.src;
+    zoomImage.alt = cardImageLink.alt;
+    zoomTitle.textContent = cardImageText.textContent;*/
+    popupCard.classList.add('popup-card_opened');
+};
+const closeCardZoom = function () {
+    popupCard.classList.remove('popup-card_opened');
+};
+
+//запуск функций по нажатию на кнопки
+/*openCard.addEventListener('click', openCardZoom);*/
+openCards.forEach(item => {//перебором по всем карточкам устанавливаем слушатель клика с вызовом окна zoom
+    item.addEventListener('click', function (evt) {
+/*      console.log('1)' + evt.target);
+        console.log('2)' + evt.target.closest('.card__image').src);
+        console.log('3)' + evt.target.closest('.card__image').alt);
+        console.log('4)' + evt.target.closest('.card__image').nextElementSibling.textContent);*/
+        zoomImage.src = evt.target.closest('.card__image').src;
+        zoomImage.alt = evt.target.closest('.card__image').alt;
+        zoomTitle.textContent = evt.target.closest('.card__image').nextElementSibling.textContent;
+        openCardZoom();
+    });
+  });
+closeCard.addEventListener('click', closeCardZoom);

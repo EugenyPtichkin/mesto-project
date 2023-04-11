@@ -1,0 +1,13 @@
+.popup-card__title {
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  height: 12px;
+  color: #FFF;
+}
