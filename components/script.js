@@ -125,7 +125,7 @@ function initialAddCards() {
 initialAddCards();
 
 
-/* Like для всех открытых карточек */
+/* обслуживание Like для всех открытых карточек */
 //выбираем все карточки - новые не лайкает!!!
 const likeBtns = [...document.querySelectorAll('.card__like')];
 //перебором по всем карточкам устанавливаем слушатель клика с вызовом функции смены признака
@@ -136,7 +136,7 @@ likeBtns.forEach(item => {
 });
 
 
-/* Удаление для всех открытых карточек */
+/* обслуживание козины - удаление для всех открытых карточек */
 //выбираем все карточки - новые не удаляет!!!
 const deleteBtns = [...document.querySelectorAll('.card__delete')];
 //перебором по всем карточкам устанавливаем слушатель клика с вызовом функции удаления
@@ -146,46 +146,44 @@ deleteBtns.forEach(item => {
     });
 });
 
-
-
-/* Открытие окна карточки при нажатии на 1 картинку */
-/*const openCard = document.querySelector('.card__image');*/
 /* Открытие окна карточки при нажатии на любую из картинок */
-const openCards =[...document.querySelectorAll('.card__image')];
+const openCards = [...document.querySelectorAll('.card__image')];
 /* Закрытие окна карточки */
 const closeCard = document.querySelector('.popup-card__button-close');
 /* Ссылка на окно карточки */
 const popupCard = document.querySelector('.popup-card');
-/* Свойства исходной картинки */
-/*const cardImageLink = document.querySelector('.card__image');
-const cardImageAlt = document.querySelector('.card__image');
-const cardImageText = document.querySelector('.card__text');*/
 /* Свойства картинки в zoom`е */
-const zoomImage = document.querySelector('.popup-card__image'); 
-const zoomTitle = document.querySelector('.popup-card__title'); 
+const zoomImage = document.querySelector('.popup-card__image');
+const zoomTitle = document.querySelector('.popup-card__title');
 
 const openCardZoom = function () {
-/*  zoomImage.src = cardImageLink.src;
-    zoomImage.alt = cardImageLink.alt;
-    zoomTitle.textContent = cardImageText.textContent;*/
     popupCard.classList.add('popup-card_opened');
 };
 const closeCardZoom = function () {
     popupCard.classList.remove('popup-card_opened');
 };
 
-//запуск функций по нажатию на кнопки
-/*openCard.addEventListener('click', openCardZoom);*/
+//открытие-закрытие окна и передача данных по нажатию на кнопки
 openCards.forEach(item => {//перебором по всем карточкам устанавливаем слушатель клика с вызовом окна zoom
     item.addEventListener('click', function (evt) {
-/*      console.log('1)' + evt.target);
-        console.log('2)' + evt.target.closest('.card__image').src);
-        console.log('3)' + evt.target.closest('.card__image').alt);
-        console.log('4)' + evt.target.closest('.card__image').nextElementSibling.textContent);*/
         zoomImage.src = evt.target.closest('.card__image').src;
         zoomImage.alt = evt.target.closest('.card__image').alt;
         zoomTitle.textContent = evt.target.closest('.card__image').nextElementSibling.textContent;
         openCardZoom();
     });
-  });
+});
 closeCard.addEventListener('click', closeCardZoom);
+
+
+//Обслуживание анимации плавного закрытия 
+// We need to keep track of faded in elements so we can apply fade out later in CSS
+document.addEventListener('animationstart', function (e) {
+  if (e.animationName === 'fade-in') {
+    e.target.classList.add('did-fade-in');
+  }
+});
+document.addEventListener('animationend', function (e) {
+  if (e.animationName === 'fade-out') {
+    e.target.classList.remove('did-fade-in');
+  }
+});

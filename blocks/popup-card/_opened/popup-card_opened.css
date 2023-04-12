@@ -1,3 +1,13 @@
 .popup-card_opened {
-    display: flex;
-  }
+  display: flex;
+  /*  opacity: 0;
+  transition: opacity 1000ms 0ms;*/
+  -webkit-animation: fade-in 1s;
+  animation: fade-in 1s;
+}
+
+.popup-card.did-fade-in:not(.popup-card_opened) {
+  display: flex;
+  -webkit-animation: fade-out 1s;
+  animation: fade-out 1s;
+}

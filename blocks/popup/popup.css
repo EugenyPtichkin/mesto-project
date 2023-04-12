@@ -7,7 +7,9 @@
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
+/*opacity: 0;
+  transition: opacity 1000ms 0ms;*/
 }
 
 .popup::before {
