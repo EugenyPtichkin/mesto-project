@@ -97,6 +97,17 @@ function handleFormSubmit(evt) {
         cardElement.querySelector('.card__delete').addEventListener('click', function (evt) {
             evt.target.closest('.card').remove();
         });
+
+        //При появлении новой карточки вешаем ей обработчик открытия zoom карточки и передаем информацию
+        cardElement.querySelector('.card__image').addEventListener('click', function (evt) {
+            console.log('зашел в функцию')
+            zoomImage.src = evt.target.closest('.card__image').src;
+            zoomImage.alt = evt.target.closest('.card__image').alt;
+            zoomTitle.textContent = evt.target.closest('.card__image').nextElementSibling.textContent;            
+            console.log('передал параметры' + zoomImage.src + zoomImage.alt + zoomTitle.textContent);
+            openCardZoom();
+        });
+        //При появлении новой карточки обработчик закрытия zoom карточки уже есть
     }
 
     //Закрыть окно попапа
@@ -126,7 +137,6 @@ initialAddCards();
 
 
 /* обслуживание Like для всех открытых карточек */
-//выбираем все карточки - новые не лайкает!!!
 const likeBtns = [...document.querySelectorAll('.card__like')];
 //перебором по всем карточкам устанавливаем слушатель клика с вызовом функции смены признака
 likeBtns.forEach(item => {
@@ -135,9 +145,7 @@ likeBtns.forEach(item => {
     });
 });
 
-
-/* обслуживание козины - удаление для всех открытых карточек */
-//выбираем все карточки - новые не удаляет!!!
+/* обслуживание корзины - удаление для всех открытых карточек */
 const deleteBtns = [...document.querySelectorAll('.card__delete')];
 //перебором по всем карточкам устанавливаем слушатель клика с вызовом функции удаления
 deleteBtns.forEach(item => {
@@ -148,6 +156,7 @@ deleteBtns.forEach(item => {
 
 /* Открытие окна карточки при нажатии на любую из картинок */
 const openCards = [...document.querySelectorAll('.card__image')];
+const openCard = document.querySelector('.card__image');
 /* Закрытие окна карточки */
 const closeCard = document.querySelector('.popup-card__button-close');
 /* Ссылка на окно карточки */
@@ -178,12 +187,12 @@ closeCard.addEventListener('click', closeCardZoom);
 //Обслуживание анимации плавного закрытия 
 // We need to keep track of faded in elements so we can apply fade out later in CSS
 document.addEventListener('animationstart', function (e) {
-  if (e.animationName === 'fade-in') {
-    e.target.classList.add('did-fade-in');
-  }
+    if (e.animationName === 'fade-in') {
+        e.target.classList.add('did-fade-in');
+    }
 });
 document.addEventListener('animationend', function (e) {
-  if (e.animationName === 'fade-out') {
-    e.target.classList.remove('did-fade-in');
-  }
+    if (e.animationName === 'fade-out') {
+        e.target.classList.remove('did-fade-in');
+    }
 });

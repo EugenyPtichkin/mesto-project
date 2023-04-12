@@ -5,7 +5,6 @@
   max-width: calc(1280px - 2*200px);
   min-width: min(calc(1280px - 2*200px), calc(100vw - 2*200px));
   display: grid;
-  /*grid-template-columns: repeat(3, minmax(min-content, max-content));*/
   grid-template-columns: repeat(3, 1fr);
   column-gap: 17px;
   row-gap: 20px;

@@ -15,7 +15,7 @@
 
 @media screen and (max-width: 1279px) {
   .card__text {
-    max-width: calc( (100vw - 17px)/2 - 21px - 2*20px - 22px);
+    max-width: calc( (768px - 17px)/2 - 21px - 2*20px - 22px);
   }
 }
 
