@@ -1,4 +1,4 @@
-.popup-card__button-close {
+.popup-zoom__button-close {
     position: absolute;
     top: calc(0px - 8px - 32px);
     right: calc(0px - 8px - 32px);
@@ -12,7 +12,7 @@
   }
   
   @media screen and (max-width: 767px) {
-    .popup-card__button-close {
+    .popup-zoom__button-close {
       top: calc(0px - 20px - 16px);
       right: 0px;
       width: 20px;
@@ -20,6 +20,6 @@
     }
   }
   
-  .popup-card__button-close:hover {
+  .popup-zoom__button-close:hover {
     opacity: 0.6;
   }

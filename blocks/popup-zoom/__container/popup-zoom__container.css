@@ -1,4 +1,4 @@
-.popup-card__container {
+.popup-zoom__container {
     margin: 0;
     padding: 0;
     max-width: 75vw;
@@ -9,7 +9,7 @@
   }
   
   @media screen and (max-width: 320px) {
-    .popup-card__container {
+    .popup-zoom__container {
       min-width: 240px;
     }
   }

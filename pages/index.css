@@ -35,7 +35,7 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
 
-/* POPUP------------------------------------ */
+/* POPUP EDIT PROFILE----------------------- */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__form/popup__form.css);
@@ -46,10 +46,21 @@
 @import url(../blocks/popup/__button-submit/popup__button-submit.css);
 @import url(../blocks/popup/__button-close/popup__button-close.css);
 
-/* POPUP-CARD------------------------------- */
-@import url(../blocks/popup-card/popup-card.css);
-@import url(../blocks/popup-card/_opened/popup-card_opened.css);
-@import url(../blocks/popup-card/__container/popup-card__container.css);
-@import url(../blocks/popup-card/__image/popup-card__image.css);
-@import url(../blocks/popup-card/__title/popup-card__title.css);
-@import url(../blocks/popup-card/__button-close/popup-card__button-close.css);
+/* POPUP ADD CARD--------------------------- */
+@import url(../blocks/popup-add/popup-add.css);
+@import url(../blocks/popup-add/_opened/popup-add_opened.css);
+@import url(../blocks/popup-add/__form/popup-add__form.css);
+@import url(../blocks/popup-add/__container/popup-add__container.css);
+@import url(../blocks/popup-add/__inner-box/popup-add__inner-box.css);
+@import url(../blocks/popup-add/__input/popup-add__input.css);
+@import url(../blocks/popup-add/__title/popup-add__title.css);
+@import url(../blocks/popup-add/__button-submit/popup-add__button-submit.css);
+@import url(../blocks/popup-add/__button-close/popup-add__button-close.css);
+
+/* POPUP CARD ZOOM ------------------------- */
+@import url(../blocks/popup-zoom/popup-zoom.css);
+@import url(../blocks/popup-zoom/_opened/popup-zoom_opened.css);
+@import url(../blocks/popup-zoom/__container/popup-zoom__container.css);
+@import url(../blocks/popup-zoom/__image/popup-zoom__image.css);
+@import url(../blocks/popup-zoom/__title/popup-zoom__title.css);
+@import url(../blocks/popup-zoom/__button-close/popup-zoom__button-close.css);

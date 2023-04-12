@@ -38,70 +38,15 @@
 
       <!-- ELEMENTS -->
       <section class="cards" aria-label="интересные места">
-
-        <div class="card">
-          <img class="card__image" src="./images/__olga-kovalski-ZoZBfG_Vrzg-unsplash.jpg" alt="москва">
-          <div class="card__block">
-            <h2 class="card__text">Москва</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится красная площадь"></button>
-          </div>
-          <button type="button" class="card__delete pointer" aria-label="удалить красную площадь"></button>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/__victor-malyushev-jDQ7goYMKgc-unsplash.jpg" alt="санкт-петербург">
-          <div class="card__block">
-            <h2 class="card__text">Санкт-Петербург</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится санкт-петербург"></button>
-          </div>
-          <button type="button" class="card__delete pointer" aria-label="удалить санкт-петербург"></button>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/__georgy-trofimov-8wsxtCoyIRs-unsplash.jpg" alt="великий новгород">
-          <div class="card__block">
-            <h2 class="card__text">Великий Новгород</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится великий новгород"></button>
-          </div>
-          <button type="button" class="card__delete pointer" aria-label="удалить великий новгород"></button>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/__image_elbrus.png" alt="гора эльбрус">
-          <div class="card__block">
-            <h2 class="card__text">Гора Эльбрус</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится гора эльбрус"></button>
-          </div>
-          <button type="button" class="card__delete pointer" aria-label="удалить гору эльбрус"></button>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/__image_dombai.png" alt="домбай">
-          <div class="card__block">
-            <h2 class="card__text">Домбай</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится домбай"></button>
-          </div>
-          <button type="button" class="card__delete pointer" aria-label="удалить домбай"></button>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/__image_karachevsk.png" alt="карачаево-черкессия">
-          <div class="card__block">
-            <h2 class="card__text">Карачаево-Черкессия</h2>
-            <button type="button" class="card__like pointer" aria-label="нравится карачаево черкессия"></button>
-          </div>
-          <button type="button" class="card__delete pointer" aria-label="удалить карачаево черкуссию"></button>
-        </div>
-
       </section>
     </main>
 
-    <!-- FOOTER sticky -->
+    <!-- FOOTER -->
     <footer class="footer" aria-label="нижний колонтитул">
       <p class="footer__text">&copy; 2023 Mesto Russia</p>
     </footer>
 
-    <!-- POPUP -->
+    <!-- POPUP PROFILE EDIT-->
     <div class="popup">
       <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
       <div class="popup__container">
@@ -121,12 +66,33 @@
       </div>
     </div>
 
-    <!-- CARD-POPUP -->
-    <div class="popup-card">            
-      <div class="popup-card__container">
-        <button type="button" class="popup-card__button-close pointer" aria-label="закрыть картинку"></button>
-        <img class="popup-card__image" src="" alt="">
-        <h2 class="popup-card__title">Название места</h2>
+    <!-- POPUP CARD ADD -->
+    <div class="popup-add">
+      <button type="button" class="popup-add__button-close pointer" aria-label="закрыть окно"></button>
+      <div class="popup-add__container">
+        <form class="popup-add__form" action="./index.html" method="post" name="main-add_form">
+          <div class="popup-add__inner-box">
+            <fieldset class="popup-add__input">
+              <h2 class="popup-add__title">Новое место</h2>
+              <input type="text" class="popup-add__input popup-add__input_name"
+                id="place-id" name="place-name" placeholder="Название">
+              <input type="text" class="popup-add__input popup-add__input_img-link"
+                id="img-link-id" name="img-link" placeholder="Ссылка на картинку">
+            </fieldset>
+            <button type="submit" class="popup-add__button-submit pointer" value="1"
+               name="submit-add_button" aria-label="добавить картинку">Создать</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- POPUP CARD ZOOM -->
+    <div class="popup-zoom">            
+      <div class="popup-zoom__container">
+        <button type="button" class="popup-zoom__button-close pointer" 
+          aria-label="закрыть картинку"></button>
+        <img class="popup-zoom__image" src="" alt="">
+        <h2 class="popup-zoom__title">Название места</h2>
       </div>
     </div>
 
