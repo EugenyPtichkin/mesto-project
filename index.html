@@ -47,16 +47,16 @@
     </footer>
 
     <!-- POPUP PROFILE EDIT-->
-    <div class="popup">
-      <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
+    <div class="popup popup_profile">
       <div class="popup__container">
+        <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
         <form class="popup__form" action="./index.html" method="post" name="main_form">
           <div class="popup__inner-box">
             <fieldset class="popup__input">
               <h2 class="popup__title">Редактировать профиль</h2>
-              <input type="text" class="popup__input popup__input_field_name" id="user-id" name="user_name"
+              <input type="text" class="popup__input popup__input_name" id="user-id" name="user_name"
                 placeholder="Ваше имя">
-              <input type="text" class="popup__input popup__input_field_occupation" id="occupation-id"
+              <input type="text" class="popup__input popup__input_occupation" id="occupation-id"
                 name="user_occupation" placeholder="Ваш род занятий">
             </fieldset>
             <button type="submit" class="popup__button-submit pointer" value="1" name="submit_button"
@@ -67,19 +67,19 @@
     </div>
 
     <!-- POPUP CARD ADD -->
-    <div class="popup-add">
-      <button type="button" class="popup-add__button-close pointer" aria-label="закрыть окно"></button>
-      <div class="popup-add__container">
-        <form class="popup-add__form" action="./index.html" method="post" name="main-add_form">
-          <div class="popup-add__inner-box">
-            <fieldset class="popup-add__input">
-              <h2 class="popup-add__title">Новое место</h2>
-              <input type="text" class="popup-add__input popup-add__input_name"
+    <div class="popup popup_add">
+      <div class="popup__container">
+        <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
+        <form class="popup__form" action="./index.html" method="post" name="main-add_form">
+          <div class="popup__inner-box">
+            <fieldset class="popup__input">
+              <h2 class="popup__title">Новое место</h2>
+              <input type="text" class="popup__input popup__input_name"
                 id="place-id" name="place-name" placeholder="Название">
-              <input type="text" class="popup-add__input popup-add__input_img-link"
+              <input type="text" class="popup__input popup__input_link"
                 id="img-link-id" name="img-link" placeholder="Ссылка на картинку">
             </fieldset>
-            <button type="submit" class="popup-add__button-submit pointer" value="1"
+            <button type="submit" class="popup__button-submit pointer" value="1"
                name="submit-add_button" aria-label="добавить картинку">Создать</button>
           </div>
         </form>
@@ -87,12 +87,12 @@
     </div>
 
     <!-- POPUP CARD ZOOM -->
-    <div class="popup-zoom">            
-      <div class="popup-zoom__container">
-        <button type="button" class="popup-zoom__button-close pointer" 
+    <div class="popup popup_zoom">            
+      <div class="popup__zoom-container"> <!-- значительно отличается от popup__container.css -->
+        <button type="button" class="popup__button-close pointer" 
           aria-label="закрыть картинку"></button>
-        <img class="popup-zoom__image" src="" alt="">
-        <h2 class="popup-zoom__title">Название места</h2>
+        <img class="popup__zoom-image" src="" alt="картинка места"> <!-- новое css свойство -->
+        <h2 class="popup__zoom-title">Название места</h2> <!-- значительно отличается от popup__title.css -->
       </div>
     </div>
 

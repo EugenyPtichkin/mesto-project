@@ -7,10 +7,16 @@
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  
-/*opacity: 0;
-  transition: opacity 1000ms 0ms;*/
+  justify-content: center;
+/*  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease 0s;*/
 }
+
+/*.popup:target {
+  opacity: 1;
+  visibility: visible;
+}*/
 
 .popup::before {
   content: "";

@@ -1,9 +1,0 @@
-.popup-add__inner-box {
-  width: 358px;
-}
-
-@media screen and (max-width: 767px) {
-  .popup-add__inner-box {
-    width: 238px;
-  }
-}
