@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+ <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <title>Mesto</title>
 </head>
 
@@ -14,7 +14,7 @@
 
     <!-- HEADER -->
     <header class="header">
-      <img class="header__logo" src="./images/__logo_white.svg" alt="логотип Место Россия">
+      <img class="header__logo" src="<%=require('./images/__logo_white.svg')%>" alt="логотип Место Россия">
     </header>
 
     <main class="main">
@@ -22,7 +22,7 @@
       <!-- PROFILE -->
       <section class="profile">
         <div class="profile__avatar">
-          <img class="profile__image" src="./images/__avatar.png" alt="аватар">
+          <img class="profile__image" src="<%=require('./images/__avatar.png')%>" alt="аватар">
         </div>
         <div class="profile__name-add-button">
           <div class="profile__info">
@@ -119,9 +119,14 @@
       <button type="button" class="card__delete pointer" aria-label="удалить темплейт"></button>
     </div>
   </template>
-
-  <script src="./components/constants.js"></script>
+<!--
+  <script type = "module" src="./components/constants.js"></script>
   <script type = "module" src="./components/index.js"></script>
+  <script type = "module" src="./components/validate.js"></script>
+  <script type = "module" src="./components/utils.js"></script>
+  <script type = "module" src="./components/card.js"></script>
+  <script type = "module" src="./components/modal.js"></script>
+-->
 </body>
 
 </html>
