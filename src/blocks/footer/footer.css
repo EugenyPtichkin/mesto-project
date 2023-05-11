@@ -7,7 +7,7 @@
   min-width: min(calc(1280px - 2*200px), calc(100vw - 2*200px));
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   box-sizing: border-box;
 }
 

@@ -4,7 +4,7 @@
   font-size: 12px;
   line-height: 15px;
   display: block;
-  height: 30px;
+  min-height: 30px;
   color: #F00;
   opacity: 0;
   transition: 0.3s;
