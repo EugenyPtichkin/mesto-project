@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+<!--  <link rel="stylesheet" href="./pages/index.css">  -->
   <title>Mesto</title>
 </head>
 
@@ -58,12 +58,12 @@
                 placeholder="Ваше имя" required minlength="2" maxlength="40" 
                 pattern="^[a-zA-ZА-Яа-яЁё\s-]+$" 
                 data-error-message="Разрешены только латинские и кириллические буквы, пробел и дефис">
-              <span class="popup__input-error user-input-error">место ошибки 1</span> 
+              <span class="popup__input-error user-input-error">место ошибки ввода имени</span> 
               <input type="text" class="popup__input popup__input_occupation" id="occupation-input"
                 name="user_occupation" placeholder="Ваш род занятий" required minlength="2" maxlength="200"
                 pattern="^[a-zA-ZА-Яа-яЁё\s-]+$" 
                 data-error-message="Разрешены только латинские и кириллические буквы, пробел и дефис">
-              <span class="popup__input-error occupation-input-error">место ошибки 2</span> 
+              <span class="popup__input-error occupation-input-error">место ошибки ввода занятия</span> 
             </fieldset>
             <button type="submit" class="popup__button-submit pointer" value="1" name="submit_button"
               aria-label="сохранить профиль">Сохранить</button>
@@ -84,10 +84,10 @@
                 id="place-input" name="place-name" placeholder="Название" required minlength="2" maxlength="30"
                 pattern="^[a-zA-ZА-Яа-яЁё\s-]+$" 
                 data-error-message="Разрешены только латинские и кириллические буквы, пробел и дефис">
-              <span class="popup__input-error place-input-error">место ошибки 3</span> 
+              <span class="popup__input-error place-input-error">место ошибки ввода места</span> 
               <input type="url" class="popup__input popup__input_link"
                 id="link-input" name="img-link" placeholder="Ссылка на картинку" required>
-              <span class="popup__input-error link-input-error">место ошибки 4</span> 
+              <span class="popup__input-error link-input-error">место ошибки ввода ссылки</span> 
             </fieldset>
             <button type="submit" class="popup__button-submit pointer" value="1"
                name="submit-add_button" aria-label="добавить картинку">Создать</button>

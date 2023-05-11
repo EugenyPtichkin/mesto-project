@@ -1,6 +1,11 @@
 import { initialCards } from './constants.js';
 import { cardsTable } from '../index.js';
-import { openPopup, closePopupModal, closePopupEsc } from './modal.js';
+import { openPopup } from './modal.js';
+
+// Ссылка на zoom окна карточки и свойства картинки в zoom`е находятся однократно
+const zoomPopup = document.querySelector('.popup_zoom');
+const zoomImage = zoomPopup.querySelector('.popup__zoom-image');
+const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
 
 /* -------------------------------------------------------- */
 /* -- Функция добавления карточки со всеми обработчиками -- */
@@ -26,12 +31,6 @@ export function createCard(placeValue, linkValue) {
         evt.target.closest('.card').remove();
       });
   
-      // Ссылка на zoom окна карточки 
-      const zoomPopup = document.querySelector('.popup_zoom');
-      // Свойства картинки в zoom`е 
-      const zoomImage = zoomPopup.querySelector('.popup__zoom-image');
-      const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
-  
       //При появлении новой карточки вешаем ей обработчик открытия zoom карточки по нажатию на картинку 
       //передаем информацию для отображения
       cardElement.querySelector('.card__image').addEventListener('click', function (evt) {
@@ -39,8 +38,6 @@ export function createCard(placeValue, linkValue) {
         zoomImage.alt = evt.target.closest('.card__image').alt;
         zoomTitle.textContent = evt.target.closest('.card__image').nextElementSibling.textContent;
         openPopup(zoomPopup);
-        closePopupModal(zoomPopup); 
-        closePopupEsc(zoomPopup);
       });
       return cardElement;
     }

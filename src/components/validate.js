@@ -35,10 +35,12 @@ const showInputError = (formElement, inputElement, errorMessage, inputErrorClass
   }
   
   function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
-    if (hasInvalidInput(inputList)) {   /* притушить кнопку submit */
-      buttonElement.classList.add(inactiveButtonClass);
-    } else {                            /* разрешить кнопку submit */
-      buttonElement.classList.remove(inactiveButtonClass);
+    if (hasInvalidInput(inputList)) { 
+      buttonElement.disabled = true;    /* установить свойство неактивно, чтобы заблокировать Enter */ 
+      buttonElement.classList.add(inactiveButtonClass); /* притушить кнопку submit */
+    } else {                            
+      buttonElement.disabled = false;   /* снять свойство неактивно */ 
+      buttonElement.classList.remove(inactiveButtonClass); /* разрешить кнопку submit */
     }
   }
   

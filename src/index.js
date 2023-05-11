@@ -2,6 +2,7 @@ import './pages/index.css'; // добавьте импорт главного ф
 import { enableValidation } from './components/validate.js';
 import { createCard, initialAddCards } from './components/card.js';
 import { closePopup, formCardElement, placeInput, linkInput, cardPopup } from './components/modal.js';
+import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
 //определяем место вставки новой карточки глобально вне функции
 export const cardsTable = document.querySelector('.cards');
@@ -13,7 +14,6 @@ initialAddCards(); //запускаем функцию однократно
 
 /* -------------------------------------------------- */
 /* -- Включение валидации вызовом enableValidation -- */
-/* -- все настройки передаются при вызове          -- */
 /* -------------------------------------------------- */
 enableValidation({
   formSelector: '.popup__form',
@@ -44,3 +44,9 @@ function handleCardFormSubmit(evt) {
 }
 // Прикрепляем обработчик к форме:
 formCardElement.addEventListener('submit', handleCardFormSubmit);
+
+/* --------------------------------------------- */
+/* -- Обслуживание анимации плавного закрытия -- */
+/* --------------------------------------------- */
+animationStartFunction();
+animationEndFunction();

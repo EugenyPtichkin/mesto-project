@@ -15,33 +15,25 @@ closeBtns.forEach((button) => {
 /* -------------------------------------------------------- */
 /* -- Отдельные функции закрытия-открытия модальных окон -- */
 /* -------------------------------------------------------- */
+export function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  popup.addEventListener("click", closePopupModalListener); /* Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия*/
+  document.addEventListener('keydown', closePopupEscListener); /* Закрытие модального окна при нажатии на Esc */
+};
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   popup.removeEventListener("click", closePopupModalListener);   /* убрать слушатель на модальное окно */
   document.removeEventListener('keydown', closePopupEscListener);/* убрать слушатель на esc */
-}
-export function openPopup(popup) {
-  popup.classList.add('popup_opened');
-};
-
-/* Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия*/
-export function closePopupModal(popupElement) {
-  popupElement.addEventListener("click", closePopupModalListener);
 }
 function closePopupModalListener(evt) {
   if (evt.currentTarget === evt.target) {
     closePopup(evt.target);
   }
 }
-/* Закрытие модального окна при нажатии на Esc: если значение нажатой кнопки Esc
-то находим переменную с селектором открытого попапа и закрываем его*/
-export function closePopupEsc() {
-  document.addEventListener('keydown', closePopupEscListener);
-}
 function closePopupEscListener(evt) {
   if (evt.key === 'Escape') {
-    const popupElement = document.querySelector('.popup_opened');
-    closePopup(popupElement);
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
   }
 }
 
@@ -66,8 +58,6 @@ openProfileBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileText.textContent;
   openPopup(profilePopup);
-  closePopupModal(profilePopup); 
-  closePopupEsc(profilePopup);
 });
 
 // Обработчик «отправки» формы для изменения профиля
@@ -97,13 +87,14 @@ export const formCardElement = cardPopup.querySelector('.popup__form');
 // Поля ввода формы профиля в DOM 
 export const placeInput = formCardElement.querySelector('.popup__input_place');
 export const linkInput = formCardElement.querySelector('.popup__input_link');
+const buttonElement = formCardElement.querySelector('.popup__button-submit');
 
 // Открытие окна новой карточки
 const openCardBtn = document.querySelector('.profile__button-add');
 //запуск функций добавления карточки по нажатию на кнопки
 openCardBtn.addEventListener('click', () => {
-  formCardElement.reset(); //сброс ранее введенных значений
+  formCardElement.reset(); //сброс ранее введенных значений  
+  buttonElement.classList.add('popup__button-submit_inactive');//установка неактивного состояния кнопки отправки при открытии окна
+  buttonElement.disabled = true;    /* установить свойство неактивно, чтобы заблокировать Enter */   
   openPopup(cardPopup);
-  closePopupModal(cardPopup); 
-  closePopupEsc(cardPopup);
 });
