@@ -1,0 +1,13 @@
+.profile__image-pen {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    left: calc((120px - 26px) / 2);
+    top: calc((120px - 26px) / 2);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.profile__avatar:hover .profile__image-pen {
+    opacity: 1;
+}

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--  <link rel="stylesheet" href="./pages/index.css">  -->
+  <!--<link rel="stylesheet" href="./pages/index.css">-->
   <title>Mesto</title>
 </head>
 
@@ -22,7 +22,11 @@
       <!-- PROFILE -->
       <section class="profile">
         <div class="profile__avatar">
-          <img class="profile__image" src="<%=require('./images/__avatar.png')%>" alt="аватар">
+          <!--<img class="profile__image" src="./images/__avatar.png" alt="аватар">-->
+          <!--<img class="profile__image-pen" src="./images/__pen.png" alt="карандаш">-->
+          <img class="profile__image" src="<%=require('./images/__EvgenyPtichkin.jpg')%>" alt="аватар">
+          <img class="profile__image-pen" src="<%=require('./images/__pen.png')%>" alt="карандаш">
+          <button type="button" class="profile__button-avatar pointer" aria-label="изменить аватар"></button>
         </div>
         <div class="profile__name-add-button">
           <div class="profile__info">
@@ -55,17 +59,16 @@
             <fieldset class="popup__fieldset">
               <h2 class="popup__title">Редактировать профиль</h2>
               <input type="text" class="popup__input popup__input_name" id="user-input" name="user_name"
-                placeholder="Ваше имя" required minlength="2" maxlength="40" 
-                pattern="^[a-zA-ZА-Яа-яЁё\s-]+$" 
+                placeholder="Ваше имя" required minlength="2" maxlength="40" pattern="^[a-zA-ZА-Яа-яЁё\s-]+$"
                 data-error-message="Разрешены только латинские и кириллические буквы, пробел и дефис">
-              <span class="popup__input-error user-input-error">место ошибки ввода имени</span> 
+              <span class="popup__input-error user-input-error">место ошибки ввода имени</span>
               <input type="text" class="popup__input popup__input_occupation" id="occupation-input"
                 name="user_occupation" placeholder="Ваш род занятий" required minlength="2" maxlength="200"
-                pattern="^[a-zA-ZА-Яа-яЁё\s-]+$" 
+                pattern="^[a-zA-ZА-Яа-яЁё\s-]+$"
                 data-error-message="Разрешены только латинские и кириллические буквы, пробел и дефис">
-              <span class="popup__input-error occupation-input-error">место ошибки ввода занятия</span> 
+              <span class="popup__input-error occupation-input-error">место ошибки ввода занятия</span>
             </fieldset>
-            <button type="submit" class="popup__button-submit pointer" value="1" name="submit_button"
+            <button type="submit" class="popup__button-submit popup__button-submit-active pointer" value="1" name="submit_button"
               aria-label="сохранить профиль">Сохранить</button>
           </div>
         </form>
@@ -73,36 +76,67 @@
     </div>
 
     <!-- POPUP CARD ADD -->
-   <div class="popup popup_add">
+    <div class="popup popup_add">
       <div class="popup__container">
         <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
         <form class="popup__form" action="./index.html" method="post" name="main-add_form">
           <div class="popup__inner-box">
             <fieldset class="popup__fieldset">
               <h2 class="popup__title">Новое место</h2>
-              <input type="text" class="popup__input popup__input_place"
-                id="place-input" name="place-name" placeholder="Название" required minlength="2" maxlength="30"
-                pattern="^[a-zA-ZА-Яа-яЁё\s-]+$" 
+              <input type="text" class="popup__input popup__input_place" id="place-input" name="place-name"
+                placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-ZА-Яа-яЁё\s-]+$"
                 data-error-message="Разрешены только латинские и кириллические буквы, пробел и дефис">
-              <span class="popup__input-error place-input-error">место ошибки ввода места</span> 
-              <input type="url" class="popup__input popup__input_link"
-                id="link-input" name="img-link" placeholder="Ссылка на картинку" required>
-              <span class="popup__input-error link-input-error">место ошибки ввода ссылки</span> 
+              <span class="popup__input-error place-input-error">место ошибки ввода места</span>
+              <input type="url" class="popup__input popup__input_link" id="link-input" name="img-link"
+                placeholder="Ссылка на картинку" required>
+              <span class="popup__input-error link-input-error">место ошибки ввода ссылки</span>
             </fieldset>
-            <button type="submit" class="popup__button-submit pointer" value="1"
-               name="submit-add_button" aria-label="добавить картинку">Создать</button>
+            <button type="submit" class="popup__button-submit popup__button-submit-active pointer" value="1" name="submit-add_button"
+              aria-label="добавить картинку">Создать</button>
           </div>
         </form>
       </div>
     </div>
-  
+
     <!-- POPUP CARD ZOOM -->
-    <div class="popup popup_zoom">            
+    <div class="popup popup_zoom">
       <div class="popup__zoom-container"> <!-- значительно отличается от popup__container.css -->
-        <button type="button" class="popup__button-close pointer" 
-          aria-label="закрыть картинку"></button>
+        <button type="button" class="popup__button-close pointer" aria-label="закрыть картинку"></button>
         <img class="popup__zoom-image" src="" alt="картинка места"> <!-- новое css свойство -->
         <h2 class="popup__zoom-title">Название места</h2> <!-- значительно отличается от popup__title.css -->
+      </div>
+    </div>
+
+    <!-- POPUP CARD DELETE CONFIRM -->
+    <div class="popup popup_delete">
+      <div class="popup__container">
+        <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
+        <form class="popup__form" action="./index.html" method="post" name="main_form">
+          <div class="popup__inner-box">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button type="button" class="popup__button-submit pointer" value="1" name="submit_button"
+              aria-label="подтвердить удаление">Да</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- POPUP AVATAR UPDATE -->
+    <div class="popup popup_avatar-update">
+      <div class="popup__container">
+        <button type="button" class="popup__button-close pointer" aria-label="закрыть окно"></button>
+        <form class="popup__form" action="./index.html" method="post" name="main-add_form">
+          <div class="popup__inner-box">
+            <fieldset class="popup__fieldset">
+              <h2 class="popup__title">Обновить аватар</h2>
+              <input type="url" class="popup__input popup__input_link" id="link-input" name="img-link"
+                placeholder="Ссылка на картинку аватара" required>
+              <span class="popup__input-error link-input-error">место ошибки ввода ссылки</span>
+            </fieldset>
+            <button type="submit" class="popup__button-submit popup__button-submit-active pointer" value="1" name="submit-add_button"
+              aria-label="сохранить картинку аватара">Сохранить</button>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -114,12 +148,15 @@
       <img class="card__image" src="" alt="темплейт">
       <div class="card__block">
         <h2 class="card__text">Темплейт</h2>
-        <button type="button" class="card__like pointer" aria-label="нравится темплейт"></button>
+        <div class="card__likes-num">
+          <button type="button" class="card__like pointer" aria-label="нравится темплейт"></button>
+          <p class="card__like-value">0</p>
+        </div>
       </div>
       <button type="button" class="card__delete pointer" aria-label="удалить темплейт"></button>
     </div>
   </template>
-<!--
+  <!-- /*Теперь скрипты подключает webpack */
   <script type = "module" src="./components/constants.js"></script>
   <script type = "module" src="./components/index.js"></script>
   <script type = "module" src="./components/validate.js"></script>

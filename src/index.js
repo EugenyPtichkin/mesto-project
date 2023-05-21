@@ -1,15 +1,31 @@
-import './pages/index.css'; // добавьте импорт главного файла стилей
+import './pages/index.css'; // импорт главного файла стилей
+import { getUserInfo } from './components/api.js';
+import { initialAddCards } from './components/card.js';
 import { enableValidation } from './components/validate.js';
-import { createCard, initialAddCards } from './components/card.js';
-import { closePopup, formCardElement, placeInput, linkInput, cardPopup } from './components/modal.js';
+import { profileName, profileText, profileAvatar } from './components/modal.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
-//определяем место вставки новой карточки глобально вне функции
-export const cardsTable = document.querySelector('.cards');
+//id профиля пользователя храним глобально
+export let profileId = '';
 
-/* ------------------------------------------------------- */
-/* -- Добавление карточек программно из набора констант -- */
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------------- */
+/* -- Загрузка информации о пользователе до загрузки карточек -- */
+/* ------------------------------------------------------------- */
+getUserInfo()
+  .then((result) => {    
+    // отображаем результат на странице
+    profileName.textContent = result.name;
+    profileText.textContent = result.about;
+    profileAvatar.src = result.avatar;
+    profileId = result._id;
+  })
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  });
+
+/* ---------------------------------------------- */
+/* -- Добавление карточек программно с сервера -- */
+/* ---------------------------------------------- */
 initialAddCards(); //запускаем функцию однократно
 
 /* -------------------------------------------------- */
@@ -23,27 +39,6 @@ enableValidation({
   inputErrorClass: 'popup__input_type-error',
   errorClass: 'popup__input-error_active'
 });
-
-/* --------------------------------------------------------- */
-/* -- Обработчик «отправки» формы для добавления карточки -- */
-/* --------------------------------------------------------- */
-function handleCardFormSubmit(evt) {
-  evt.preventDefault();
-
-  const placeValue = placeInput.value;
-  const linkValue = linkInput.value;
-  const newCardElement = createCard(placeValue, linkValue);
-
-  //отображаем на странице перед всеми карточками, если элемент непустой
-  if (newCardElement) {
-    cardsTable.prepend(newCardElement);
-  }
-
-  //Закрыть окно попапа
-  closePopup(cardPopup);
-}
-// Прикрепляем обработчик к форме:
-formCardElement.addEventListener('submit', handleCardFormSubmit);
 
 /* --------------------------------------------- */
 /* -- Обслуживание анимации плавного закрытия -- */

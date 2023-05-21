@@ -9,7 +9,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 294px;
+  /*max-width: 294px;*/
   /*max-height: 42px;*/ /*выравнивает текст, но обрезает букву "у"*/
   /*vertical-align: bottom;*/ /*не опускает текст ниже буквы "у" */
   /*тогда вижу решение только в подборe margin-bottom у кнопки редактирования профиля */

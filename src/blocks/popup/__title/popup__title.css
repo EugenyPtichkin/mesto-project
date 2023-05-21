@@ -9,6 +9,10 @@
   height: 23px;
 }
 
+.popup_delete .popup__title {
+  padding-bottom: calc(38px - 2px); /*2px-рамка поля input*/
+}
+
 @media screen and (max-width: 767px) {
   .popup__title {
     padding: 0;  
@@ -18,4 +22,9 @@
     line-height: 22px;
     height: 22px;
   }
+
+  .popup_delete .popup__title { /* в Фигме указания на этот размер нет, но так выглядит получше */
+    padding-bottom: calc(19px - 2px); /*2px-рамка поля input*/
+  }
+  
 }

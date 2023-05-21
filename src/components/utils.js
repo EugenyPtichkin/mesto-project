@@ -15,3 +15,18 @@ export function animationEndFunction() {
     }
   });
 }
+
+/* ------------------------------------------------- */
+/* -- Смена надписи кнопки при общении с сервером -- */
+/* ------------------------------------------------- */
+export function renderLoading(isActive) {
+  const submitButtons = document.querySelectorAll('.popup__button-submit-active');
+  submitButtons.forEach((button) => {    
+    if (isActive) {
+      button.textContent = 'Сохранение...';
+    }
+    else {
+      button.textContent = 'Сохранить'
+    }
+  });
+}

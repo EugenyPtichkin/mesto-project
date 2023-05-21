@@ -1,19 +1,23 @@
 .card__delete {
-    margin: 0;
-    padding: 0;
-    width: 18px;
-    height: 19px;
-    background-color: transparent;
-    background-image: url(../../../images/__trash.svg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 0px;
-    opacity: 1;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-  
-  .card__delete:hover {
-    opacity: 0.6;
-  }
+  margin: 0;
+  padding: 0;
+  width: 18px;
+  height: 19px;
+  background-color: transparent;
+  background-image: url(../../../images/__trash.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 0px;
+  opacity: 1;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.card__delete:hover {
+  opacity: 0.6;
+}
+
+.card__delete_hidden {
+  visibility: hidden;
+}

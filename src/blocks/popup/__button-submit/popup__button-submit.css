@@ -18,6 +18,11 @@
   transition: 0.3s;
 }
 
+.popup_delete .popup__button-submit {
+  margin-top: 0; 
+  margin-bottom: 36px;
+}
+
 .popup__button-submit:hover {
   opacity: 0.8;
 }
@@ -30,5 +35,9 @@
     line-height: 27px;
     margin-top: 13px; /* отодвинуть от span ошибки ввода*/
     margin-bottom: 25px;
+  }
+  .popup_delete .popup__button-submit {
+    margin-top: 0; 
+    margin-bottom: 36px;
   }
 }

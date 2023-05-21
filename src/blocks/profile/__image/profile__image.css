@@ -1,6 +1,17 @@
 .profile__image {
-  min-width: 120px;
-  min-height: 120px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
   background-color: #C4C4C4;
   border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile__avatar:hover .profile__image {
+  background-color: #000;
+  opacity: 0.2;
 }
