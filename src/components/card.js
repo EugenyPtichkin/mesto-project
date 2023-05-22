@@ -1,6 +1,6 @@
 import { profileId } from '../index.js';
-import { cardsTable, openPopup, closePopup, popupDelete, buttonDelete, handleDeleteAccept } from './modal.js';
-import { getInitialCards, deleteCard, addLike, deleteLike } from './api.js';
+import { openPopup, closePopup, popupDelete, buttonDelete, handleDeleteAccept } from './modal.js';
+import { deleteCard, addLike, deleteLike } from './api.js';
 
 // Ссылка на zoom окна карточки и свойства картинки в zoom`е находятся однократно
 const zoomPopup = document.querySelector('.popup_zoom');
@@ -29,18 +29,16 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
       cardElement.querySelector('.card__like').classList.add('card__like-active');
     }
 
-    //При появлении новой карточки вешаем ей обработчик добавления лайков
+    //При появлении новой карточки вешаем ей обработчик лайков на сервере
     cardElement.querySelector('.card__like').addEventListener("click", function (evt) {
-      evt.target.classList.toggle('card__like-active');
-
-      //Обновляем информацию о лайках на сервере - добавляем или снимаем лайк
-      if (evt.target.classList.contains('card__like-active')) {
+      
+      //При клике по сердечку анализируем его состояние на странице и добавляем или снимаем лайк на сервере
+      if (!evt.target.classList.contains('card__like-active')) {
         addLike(cardId)
           .then((result) => {
-            // отображаем результат
-            console.log(result);
-            //обновляем элемент на странице
+            //обновляем элемент на странице после успешного ответа с сервера
             cardElement.querySelector('.card__like-value').textContent = result.likes.length;
+            evt.target.classList.add('card__like-active');            
           })
           .catch((err) => {
             console.log(err); // выводим ошибку в консоль
@@ -49,10 +47,9 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
       else {
         deleteLike(cardId)
           .then((result) => {
-            // отображаем результат
-            console.log(result);
-            //обновляем элемент на странице
+            //обновляем элемент на странице после успешного ответа с сервера
             cardElement.querySelector('.card__like-value').textContent = result.likes.length;
+            evt.target.classList.remove('card__like-active');            
           })
           .catch((err) => {
             console.log(err); // выводим ошибку в консоль
@@ -66,18 +63,16 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
         //открыть попап подтверждения удаления
         openPopup(popupDelete);
 
-        handleDeleteAccept(buttonDelete)
+        handleDeleteAccept(buttonDelete) //ожидаем промис после подтверждения нажатия клавиши
           .then(() => {
-            //закрыть модальное окно
-            closePopup(popupDelete);
-            //удалить из DOM карточку локально
-            evt.target.closest('.card').remove();
-
             //послать запрос на удаление с сервера  
-            deleteCard(cardId) //не понял почему сработало удаление, ведь cardId не хранится нигде глобально для каждой карточки!
-              .then((result) => {
-                // отображаем результат
+            deleteCard(cardId)
+              .then( (result) => {
                 console.log(result);
+                //закрыть модальное окно после успешного ответа от сервера
+                closePopup(popupDelete);
+                //удалить из DOM карточку локально после успешного ответа от сервера                
+                evt.target.closest('.card').remove();
               })
               .catch((err) => {
                 console.log(err); // выводим ошибку в консоль
@@ -109,23 +104,3 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
   }
 }
 
-/* ----------------------------------------------------- */
-/* -- Функция добавления начальных карточек с сервера -- */
-/* ----------------------------------------------------- */
-export function initialAddCards() {
-  getInitialCards()
-    .then((result) => {
-      // отображаем результат в логе
-      console.log(result);
-      result.forEach((cardObject) => {
-        //добавляем карточки с сервера
-        const newCardElement = createCard(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner);
-        //отображаем на странице перед всеми карточками
-        cardsTable.prepend(newCardElement);
-      });
-
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    });
-}

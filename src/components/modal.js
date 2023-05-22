@@ -1,6 +1,6 @@
 import { changeUserInfo, addNewCard, changeAvatar } from './api.js';
 import { createCard } from './card.js';
-import { renderLoading } from './utils.js';
+import { handleSubmit } from './utils.js';
 
 //определяем место вставки новой карточки глобально вне функции
 export const cardsTable = document.querySelector('.cards');
@@ -68,33 +68,27 @@ openProfileBtn.addEventListener('click', () => {
   openPopup(profilePopup);
 });
 
-// Обработчик «отправки» формы для изменения профиля
-function handleFormSubmit(evt) {
-  evt.preventDefault();
-  renderLoading(true);
-
-  const nameValue = nameInput.value;
-  const jobValue = jobInput.value;
-
-  // Обновить профиль на сервере
-  changeUserInfo(nameValue, jobValue)
-    .then((result) => {
-      // отображаем результат на странице если обновление на сервере успешно
-      profileName.textContent = result.name;
-      profileText.textContent = result.about;
-      profileAvatar.src = result.avatar;
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally((res) => {
-      renderLoading(false);
+/* ------------------------------------------------------- */
+/* -- Обработчик «отправки» формы для изменения профиля -- */
+/* ------------------------------------------------------- */
+// оптимизация обработчика сабмита формы профиля
+function handleProfileFormSubmit(evt) {
+  // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
+  function makeRequest() {
+    // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
+    return changeUserInfo(nameInput.value, jobInput.value).then((userData) => {
+      profileName.textContent = userData.name;
+      profileText.textContent = userData.about;
+      profileAvatar.src = userData.avatar;
+      //Закрыть окно попапа после успешного ответа от сервера
+      closePopup(profilePopup);
     });
-
-  closePopup(profilePopup);
+  }
+  // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, evt);
 }
 // Прикрепляем обработчик к форме:
-formProfileElement.addEventListener('submit', handleFormSubmit);
+formProfileElement.addEventListener('submit', handleProfileFormSubmit);
 
 
 /* ------------------------------------------------------ */
@@ -122,32 +116,22 @@ openCardBtn.addEventListener('click', () => {
 /* --------------------------------------------------------- */
 /* -- Обработчик «отправки» формы для добавления карточки -- */
 /* --------------------------------------------------------- */
+// оптимизация обработчика сабмита новой карточки
 function handleCardFormSubmit(evt) {
-  evt.preventDefault();
-  renderLoading(true);
-
-  const placeValue = placeInput.value;
-  const linkValue = linkInput.value;
-
-  //Отправить данные о новой карточке на сервер
-  addNewCard(placeValue, linkValue)
-    .then((result) => {
-      // отображаем результат в логе
-      /*console.log(result);*/
-      //если удалось отослать на сервер, создаем карточку локально и отображаем
-      const newCardElement = createCard(result.name, result.link, result._id, result.likes, result.owner);
-      //добавление новых карточек после всех, поскольку новые карточки с сайта добавляются внизу и при чтении вернутся в другом порядке
-      cardsTable.append(newCardElement);
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally((res) => {
-      renderLoading(false);
+  // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
+  function makeRequest() {
+    // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
+    return addNewCard(placeInput.value, linkInput.value).then((cardData) => {      
+      //если удалось отослать на сервер, создаем карточку локально и отображаем      
+      const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);
+      //добавление новых карточек сверху
+      cardsTable.prepend(newCardElement);
+      //Закрыть окно попапа после успешного ответа от сервера
+      closePopup(cardPopup);
     });
-
-  //Закрыть окно попапа
-  closePopup(cardPopup);
+  }
+  // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, evt);
 }
 // Прикрепляем обработчик к форме:
 formCardElement.addEventListener('submit', handleCardFormSubmit);
@@ -195,30 +179,20 @@ newAvatarBtn.addEventListener('click', () => {
 /* ------------------------------------------------------- */
 /* -- Обработчик «отправки» формы для изменения аватара -- */
 /* ------------------------------------------------------- */
+// оптимизация обработчика сабмита изменения аватара
 function handleChangeAvatarSubmit(evt) {
-  evt.preventDefault();
-  renderLoading(true);
-
-  const avatarLinkValue = avatarLinkInput.value;
-  /*console.log(avatarLinkValue);*/
-
-  //Отправить данные о новой карточке на сервер
-  changeAvatar(avatarLinkValue)
-    .then((result) => {
-      // отображаем результат в логе
-      /*console.log(result);*/
+  // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
+  function makeRequest() {
+    // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
+    return changeAvatar(avatarLinkInput.value).then((avatarData) => {      
       //если удалось отослать на сервер меняем аватар локально
-      profileAvatar.src = result.avatar;
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally((res) => {
-      renderLoading(false);
+      profileAvatar.src = avatarData.avatar;
+      //Закрыть окно попапа после успешного ответа от сервера
+      closePopup(avatarPopup);
     });
-
-  //Закрыть окно попапа
-  closePopup(avatarPopup);
+  }
+  // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, evt);
 }
 // Прикрепляем обработчик к форме:
 formAvatarElement.addEventListener('submit', handleChangeAvatarSubmit);
