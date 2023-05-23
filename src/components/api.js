@@ -12,7 +12,7 @@ const config = {
 /* -- Запрос пользователя с сервера -- */
 /* ----------------------------------- */
 export function getUserInfo() {
-  return request( `${config.baseUrl}/users/me`, {
+  return request(`${config.baseUrl}/users/me`, {
     method: 'GET',
     headers: config.headers
   });
@@ -22,21 +22,22 @@ export function getUserInfo() {
 /* -- Запрос карточек с сервера -- */
 /* ------------------------------- */
 export function getInitialCards() {
-  return request( `${config.baseUrl}/cards`, {
+  return request(`${config.baseUrl}/cards`, {
     method: 'GET',
-    headers: config.headers} );
+    headers: config.headers
+  });
 };
 
 /* --------------------------------------- */
 /* -- Редактирование профиля на сервере -- */
 /* --------------------------------------- */
 export function changeUserInfo(newName, newAbout) {
-  return request( `${config.baseUrl}/users/me`, {
-    method: 'PATCH', 
-    headers: config.headers,  
+  return request(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
     body: JSON.stringify({
-    name: newName,
-    about: newAbout
+      name: newName,
+      about: newAbout
     })
   });
 };
@@ -88,12 +89,12 @@ export function deleteLike(cardId) {
 /* ---------------------------------- */
 /* -- Изменение аватара на сервере -- */
 /* ---------------------------------- */
-export function changeAvatar (newAvatarLink) {
+export function changeAvatar(newAvatarLink) {
   return request(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
       avatar: newAvatarLink
-    })  
+    })
   })
 }

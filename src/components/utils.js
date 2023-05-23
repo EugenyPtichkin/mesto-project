@@ -39,7 +39,7 @@ export function request(url, options) {
 /* -- Смена надписи кнопки при общении с сервером -- */
 /* ------------------------------------------------- */
 // можно сделать универсальную функцию управления текстом кнопки с 3 и 4 необязательными аргументами
-function renderLoading(isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') {
+function renderLoading(isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
   if (isLoading) {
     button.textContent = loadingText
   } else {
@@ -52,7 +52,7 @@ function renderLoading(isLoading, button, buttonText='Сохранить', loadi
 /* -------------------------------------------------------------------------------------------------------- */
 // можно сделать универсальную функцию, которая принимает функцию запроса, объект события и текст во время загрузки
 export function handleSubmit(request, evt, loadingText = "Сохранение...") {
- // всегда нужно предотвращать перезагрузку формы при сабмите
+  // всегда нужно предотвращать перезагрузку формы при сабмите
   evt.preventDefault();
 
   // универсально получаем кнопку сабмита из `evt`

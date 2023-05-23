@@ -192,5 +192,6 @@ function handleChangeAvatarSubmit(evt) {
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
   handleSubmit(makeRequest, evt);
 }
+
 // Прикрепляем обработчик к форме:
 formAvatarElement.addEventListener('submit', handleChangeAvatarSubmit);
