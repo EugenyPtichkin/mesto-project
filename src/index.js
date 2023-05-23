@@ -14,6 +14,8 @@ export let profileId = '';
 Promise.all([getUserInfo(), getInitialCards()])
   // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
   .then(([userData, cards]) => {// отображаем результат на странице    
+    console.log(userData);
+    console.log(cards);
     // тут установка данных пользователя
     profileName.textContent = userData.name;
     profileText.textContent = userData.about;
@@ -31,22 +33,21 @@ Promise.all([getUserInfo(), getInitialCards()])
   .catch(err => {
     console.log(err); // выводим ошибку в консоль
   })
-  
 
-    /* -------------------------------------------------- */
-    /* -- Включение валидации вызовом enableValidation -- */
-    /* -------------------------------------------------- */
-    enableValidation({
-      formSelector: '.popup__form',
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__button-submit',
-      inactiveButtonClass: 'popup__button-submit_inactive',
-      inputErrorClass: 'popup__input_type-error',
-      errorClass: 'popup__input-error_active'
-    });
+/* -------------------------------------------------- */
+/* -- Включение валидации вызовом enableValidation -- */
+/* -------------------------------------------------- */
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-submit',
+  inactiveButtonClass: 'popup__button-submit_inactive',
+  inputErrorClass: 'popup__input_type-error',
+  errorClass: 'popup__input-error_active'
+});
 
-    /* --------------------------------------------- */
-    /* -- Обслуживание анимации плавного закрытия -- */
-    /* --------------------------------------------- */
-    animationStartFunction();
-    animationEndFunction();
+/* --------------------------------------------- */
+/* -- Обслуживание анимации плавного закрытия -- */
+/* --------------------------------------------- */
+animationStartFunction();
+animationEndFunction();

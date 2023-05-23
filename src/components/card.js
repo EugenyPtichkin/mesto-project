@@ -1,5 +1,5 @@
 import { profileId } from '../index.js';
-import { openPopup, closePopup, popupDelete, buttonDelete, handleDeleteAccept } from './modal.js';
+import { openPopup, closePopup, popupDelete, handleDeleteAccept } from './modal.js';
 import { deleteCard, addLike, deleteLike } from './api.js';
 
 // Ссылка на zoom окна карточки и свойства картинки в zoom`е находятся однократно
@@ -31,14 +31,14 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
 
     //При появлении новой карточки вешаем ей обработчик лайков на сервере
     cardElement.querySelector('.card__like').addEventListener("click", function (evt) {
-      
+
       //При клике по сердечку анализируем его состояние на странице и добавляем или снимаем лайк на сервере
       if (!evt.target.classList.contains('card__like-active')) {
         addLike(cardId)
           .then((result) => {
             //обновляем элемент на странице после успешного ответа с сервера
             cardElement.querySelector('.card__like-value').textContent = result.likes.length;
-            evt.target.classList.add('card__like-active');            
+            evt.target.classList.add('card__like-active');
           })
           .catch((err) => {
             console.log(err); // выводим ошибку в консоль
@@ -49,7 +49,7 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
           .then((result) => {
             //обновляем элемент на странице после успешного ответа с сервера
             cardElement.querySelector('.card__like-value').textContent = result.likes.length;
-            evt.target.classList.remove('card__like-active');            
+            evt.target.classList.remove('card__like-active');
           })
           .catch((err) => {
             console.log(err); // выводим ошибку в консоль
@@ -59,20 +59,20 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
 
     //Если карточка наша, разрешаем ее удаление и вешаем ей обработчик удаления карточки
     if (cardOwner._id === profileId) {
-      cardElement.querySelector('.card__delete').addEventListener('click', function (evt) {
+      cardElement.querySelector('.card__delete').addEventListener('click', function (event) {
         //открыть попап подтверждения удаления
         openPopup(popupDelete);
 
-        handleDeleteAccept(buttonDelete) //ожидаем промис после подтверждения нажатия клавиши
+        handleDeleteAccept() //ожидаем промис после подтверждения нажатия клавиши
           .then(() => {
             //послать запрос на удаление с сервера  
             deleteCard(cardId)
-              .then( (result) => {
+              .then((result) => {
                 console.log(result);
                 //закрыть модальное окно после успешного ответа от сервера
                 closePopup(popupDelete);
                 //удалить из DOM карточку локально после успешного ответа от сервера                
-                evt.target.closest('.card').remove();
+                event.target.closest('.card').remove();
               })
               .catch((err) => {
                 console.log(err); // выводим ошибку в консоль

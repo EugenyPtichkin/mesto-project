@@ -121,7 +121,7 @@ function handleCardFormSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
   function makeRequest() {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
-    return addNewCard(placeInput.value, linkInput.value).then((cardData) => {      
+    return addNewCard(placeInput.value, linkInput.value).then((cardData) => {
       //если удалось отослать на сервер, создаем карточку локально и отображаем      
       const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);
       //добавление новых карточек сверху
@@ -142,17 +142,15 @@ formCardElement.addEventListener('submit', handleCardFormSubmit);
 // Ссылка на окно удаления карточки
 export const popupDelete = document.querySelector('.popup_delete');
 // Кнопка подтверждения
-export const buttonDelete = popupDelete.querySelector('.popup__button-submit');
+const buttonDelete = popupDelete.querySelector('.popup__button-submit');
 
 // Промисификация кнопки удаления карточки
-export function handleDeleteAccept(button) {
+export function handleDeleteAccept() {
   return new Promise((resolve) => {
-    function listener(e) {
-      resolve(e);
-      button.removeEventListener('click', listener);
+    buttonDelete.onclick = function () { //отдать промис в состоянии разрешен только после нажатия на кнопку
+      resolve();
     }
-    button.addEventListener("click", listener);
-  });
+  })
 }
 
 /* --------------------------------------------------------- */
@@ -184,7 +182,7 @@ function handleChangeAvatarSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
   function makeRequest() {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
-    return changeAvatar(avatarLinkInput.value).then((avatarData) => {      
+    return changeAvatar(avatarLinkInput.value).then((avatarData) => {
       //если удалось отослать на сервер меняем аватар локально
       profileAvatar.src = avatarData.avatar;
       //Закрыть окно попапа после успешного ответа от сервера
