@@ -1,7 +1,6 @@
 import './pages/index.css'; // импорт главного файла стилей
-/*import { getUserInfo, getInitialCards } from './components/api.js';*/
 import { api } from './components/api.js';
-import { createCard } from './components/card.js';
+import { Card } from './components/card.js';
 /*import { enableValidation } from './components/validate.js';*/
 import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';
@@ -26,9 +25,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     cards.reverse(); //более новые карточки вперед
     cards.forEach((cardObject) => {
       //добавляем карточки с сервера
-      const newCardElement = createCard(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner);
+      /*const newCardElement = createCard(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner);*/
+      const newCardElement = new Card(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner,'#card-template');
       //отображаем на странице перед всеми карточками
-      cardsTable.prepend(newCardElement);
+      /*cardsTable.prepend(newCardElement);*/
+      cardsTable.prepend(newCardElement.createCard());
     })
   })
   .catch(err => {

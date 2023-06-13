@@ -1,6 +1,6 @@
 /*import { changeUserInfo, addNewCard, changeAvatar } from './api.js';*/
 import { api } from './api.js';
-import { createCard } from './card.js';
+import { Card } from './card.js';
 import { handleSubmit } from './utils.js';
 import { FormValidator } from './validate.js';
 
@@ -28,20 +28,22 @@ export function openPopup(popup) {
   popup.classList.add('popup_opened');
   popup.addEventListener("click", closePopupModalListener); /* Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия*/
   document.addEventListener('keydown', closePopupEscListener); /* Закрытие модального окна при нажатии на Esc */
-  
-  //Объявление нового элемента класс FormValidator для открывающегося окна popup
-  const popupValidator = new FormValidator ({
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button-submit',
-    inactiveButtonClass: 'popup__button-submit_inactive',
-    inputErrorClass: 'popup__input_type-error',
-    errorClass: 'popup__input-error_active'
+
+  if (popup.querySelector('.popup__form')) { //если в новом окне есть форма, тогда
+    //объявление нового элемента класса FormValidator для открывающегося окна popup
+    const popupValidator = new FormValidator({
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__button-submit',
+      inactiveButtonClass: 'popup__button-submit_inactive',
+      inputErrorClass: 'popup__input_type-error',
+      errorClass: 'popup__input-error_active'
     },
-    popup.querySelector('.popup__form') //ссылка на форму открывающегося окна
-  );
-  //Включение валидации для каждого вновь открытого модального окна
-  popupValidator.enableValidation();
-};
+      popup.querySelector('.popup__form') //ссылка на форму открывающегося окна
+    );
+    //Включение валидации для каждого вновь открытого модального окна
+    popupValidator.enableValidation();
+  };
+}
 
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -139,9 +141,11 @@ function handleCardFormSubmit(evt) {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
     return api.addNewCard(placeInput.value, linkInput.value).then((cardData) => {
       //если удалось отослать на сервер, создаем карточку локально и отображаем      
-      const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);
+      /*const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);*/
+      const newCardElement = new Card(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner, '#card-template');
       //добавление новых карточек сверху
-      cardsTable.prepend(newCardElement);
+      /*cardsTable.prepend(newCardElement);*/
+      cardsTable.prepend(newCardElement.createCard());
       //Закрыть окно попапа после успешного ответа от сервера
       closePopup(cardPopup);
     });
