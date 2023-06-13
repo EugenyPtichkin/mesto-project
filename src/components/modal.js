@@ -2,6 +2,7 @@
 import { api } from './api.js';
 import { createCard } from './card.js';
 import { handleSubmit } from './utils.js';
+import { FormValidator } from './validate.js';
 
 //определяем место вставки новой карточки глобально вне функции
 export const cardsTable = document.querySelector('.cards');
@@ -27,7 +28,21 @@ export function openPopup(popup) {
   popup.classList.add('popup_opened');
   popup.addEventListener("click", closePopupModalListener); /* Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия*/
   document.addEventListener('keydown', closePopupEscListener); /* Закрытие модального окна при нажатии на Esc */
+  
+  //Объявление нового элемента класс FormValidator для открывающегося окна popup
+  const popupValidator = new FormValidator ({
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button-submit',
+    inactiveButtonClass: 'popup__button-submit_inactive',
+    inputErrorClass: 'popup__input_type-error',
+    errorClass: 'popup__input-error_active'
+    },
+    popup.querySelector('.popup__form') //ссылка на форму открывающегося окна
+  );
+  //Включение валидации для каждого вновь открытого модального окна
+  popupValidator.enableValidation();
 };
+
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   popup.removeEventListener("click", closePopupModalListener);   /* убрать слушатель на модальное окно */

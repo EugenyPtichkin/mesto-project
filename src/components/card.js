@@ -8,6 +8,10 @@ const zoomPopup = document.querySelector('.popup_zoom');
 const zoomImage = zoomPopup.querySelector('.popup__zoom-image');
 const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
 
+export class Card {
+  
+}
+
 /* -------------------------------------------------------- */
 /* -- Функция добавления карточки со всеми обработчиками -- */
 /* -------------------------------------------------------- */

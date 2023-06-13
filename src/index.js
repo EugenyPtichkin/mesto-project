@@ -2,7 +2,7 @@ import './pages/index.css'; // импорт главного файла стил
 /*import { getUserInfo, getInitialCards } from './components/api.js';*/
 import { api } from './components/api.js';
 import { createCard } from './components/card.js';
-import { enableValidation } from './components/validate.js';
+/*import { enableValidation } from './components/validate.js';*/
 import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
@@ -38,14 +38,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 /* -------------------------------------------------- */
 /* -- Включение валидации вызовом enableValidation -- */
 /* -------------------------------------------------- */
-enableValidation({
+/*enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button-submit',
   inactiveButtonClass: 'popup__button-submit_inactive',
   inputErrorClass: 'popup__input_type-error',
   errorClass: 'popup__input-error_active'
-});
+});*/
 
 /* --------------------------------------------- */
 /* -- Обслуживание анимации плавного закрытия -- */
