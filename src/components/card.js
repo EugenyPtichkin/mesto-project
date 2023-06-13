@@ -1,6 +1,7 @@
 import { profileId } from '../index.js';
 import { openPopup, closePopup, popupDelete, handleDeleteAccept } from './modal.js';
-import { deleteCard, addLike, deleteLike } from './api.js';
+/*import { deleteCard, addLike, deleteLike } from './api.js';*/
+import { api } from './api.js';
 
 // Ссылка на zoom окна карточки и свойства картинки в zoom`е находятся однократно
 const zoomPopup = document.querySelector('.popup_zoom');
@@ -34,7 +35,7 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
 
       //При клике по сердечку анализируем его состояние на странице и добавляем или снимаем лайк на сервере
       if (!evt.target.classList.contains('card__like-active')) {
-        addLike(cardId)
+        api.addLike(cardId)
           .then((result) => {
             //обновляем элемент на странице после успешного ответа с сервера
             cardElement.querySelector('.card__like-value').textContent = result.likes.length;
@@ -45,7 +46,7 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
           });
       }
       else {
-        deleteLike(cardId)
+        api.deleteLike(cardId)
           .then((result) => {
             //обновляем элемент на странице после успешного ответа с сервера
             cardElement.querySelector('.card__like-value').textContent = result.likes.length;
@@ -66,7 +67,7 @@ export function createCard(placeValue, linkValue, cardId, cardLikes, cardOwner) 
         handleDeleteAccept() //ожидаем промис после подтверждения нажатия клавиши
           .then(() => {
             //послать запрос на удаление с сервера  
-            deleteCard(cardId)
+            api.deleteCard(cardId)
               .then((result) => {
                 console.log(result);
                 //закрыть модальное окно после успешного ответа от сервера

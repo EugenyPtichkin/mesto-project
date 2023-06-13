@@ -1,4 +1,5 @@
-import { changeUserInfo, addNewCard, changeAvatar } from './api.js';
+/*import { changeUserInfo, addNewCard, changeAvatar } from './api.js';*/
+import { api } from './api.js';
 import { createCard } from './card.js';
 import { handleSubmit } from './utils.js';
 
@@ -76,7 +77,7 @@ function handleProfileFormSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
   function makeRequest() {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
-    return changeUserInfo(nameInput.value, jobInput.value).then((userData) => {
+    return api.changeUserInfo(nameInput.value, jobInput.value).then((userData) => {
       profileName.textContent = userData.name;
       profileText.textContent = userData.about;
       profileAvatar.src = userData.avatar;
@@ -121,7 +122,7 @@ function handleCardFormSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
   function makeRequest() {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
-    return addNewCard(placeInput.value, linkInput.value).then((cardData) => {
+    return api.addNewCard(placeInput.value, linkInput.value).then((cardData) => {
       //если удалось отослать на сервер, создаем карточку локально и отображаем      
       const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);
       //добавление новых карточек сверху
@@ -182,7 +183,7 @@ function handleChangeAvatarSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
   function makeRequest() {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
-    return changeAvatar(avatarLinkInput.value).then((avatarData) => {
+    return api.changeAvatar(avatarLinkInput.value).then((avatarData) => {
       //если удалось отослать на сервер меняем аватар локально
       profileAvatar.src = avatarData.avatar;
       //Закрыть окно попапа после успешного ответа от сервера

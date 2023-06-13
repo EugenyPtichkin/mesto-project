@@ -1,5 +1,6 @@
 import './pages/index.css'; // импорт главного файла стилей
-import { getUserInfo, getInitialCards } from './components/api.js';
+/*import { getUserInfo, getInitialCards } from './components/api.js';*/
+import { api } from './components/api.js';
 import { createCard } from './components/card.js';
 import { enableValidation } from './components/validate.js';
 import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
@@ -11,7 +12,7 @@ export let profileId = '';
 /* ------------------------------------------------------------ */
 /* -- Ждем окончания загрузки и профиля и карточек с сервера -- */
 /* ------------------------------------------------------------ */
-Promise.all([getUserInfo(), getInitialCards()])
+Promise.all([api.getUserInfo(), api.getInitialCards()])
   // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
   .then(([userData, cards]) => {// отображаем результат на странице    
     console.log(userData);
