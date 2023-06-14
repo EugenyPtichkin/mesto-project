@@ -1,6 +1,7 @@
 import './pages/index.css'; // импорт главного файла стилей
-import { api } from './components/api.js';
-import { Card } from './components/card.js';
+import { api } from './components/Api.js';
+import { Card } from './components/Card.js';
+import { Section } from './components/Section.js';
 /*import { enableValidation } from './components/validate.js';*/
 import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';

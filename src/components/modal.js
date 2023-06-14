@@ -1,8 +1,8 @@
 /*import { changeUserInfo, addNewCard, changeAvatar } from './api.js';*/
-import { api } from './api.js';
-import { Card } from './card.js';
+import { api } from './Api.js';
+import { Card } from './Card.js';
 import { handleSubmit } from './utils.js';
-import { FormValidator } from './validate.js';
+import { FormValidator } from './FormValidator.js';
 
 //определяем место вставки новой карточки глобально вне функции
 export const cardsTable = document.querySelector('.cards');

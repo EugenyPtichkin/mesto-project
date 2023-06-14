@@ -1,6 +1,6 @@
 import { profileId } from '../index.js';
 import { openPopup, closePopup, popupDelete, handleDeleteAccept } from './modal.js';
-import { api } from './api.js';
+import { api } from './Api.js';
 
 // Ссылка на zoom окна карточки и свойства картинки в zoom`е находятся однократно
 const zoomPopup = document.querySelector('.popup_zoom');
@@ -22,22 +22,22 @@ export class Card {
 
   //приватные методы
   //функция отображения активных лайков, если при открытии страницы уже есть лайк от текущего пользователя
-  _checkPreviousLikes(cardElement, profileId) {
+  _checkPreviousLikes(profileId) {
     const myLikeFound = this._cardLikes.some((item) => {
       return item._id === profileId;
     });
     if (myLikeFound) {
-      cardElement.querySelector('.card__like').classList.add('card__like-active');
+      this._element.querySelector('.card__like').classList.add('card__like-active');
     }
   }
 
   //функция добавления лайка на сервере и локально
-  _likeAdd(evt, cardElement) {
+  _likeAdd(evt) {
     api.addLike(this._cardId)    //сильное связывание с Api работает
-    //this._apiLikeAdder(this._cardId) //теряется контекст при слабом связывании
+      //this._apiLikeAdder(this._cardId) //теряется контекст при слабом связывании
       .then((result) => {
         //обновляем элемент на странице после успешного ответа с сервера
-        cardElement.querySelector('.card__like-value').textContent = result.likes.length;
+        this._element.querySelector('.card__like-value').textContent = result.likes.length;
         evt.target.classList.add('card__like-active');
       })
       .catch((err) => {
@@ -47,12 +47,12 @@ export class Card {
   }
 
   //функция удаления лайка на сервере и локально
-  _likeDelete(evt, cardElement) {
+  _likeDelete(evt) {
     api.deleteLike(this._cardId)    //сильное связывание с Api работает
-    //this._apiLikeDeleter(this._cardId)  //теряется контекст при слабом связывании
+      //this._apiLikeDeleter(this._cardId)  //теряется контекст при слабом связывании
       .then((result) => {
         //обновляем элемент на странице после успешного ответа с сервера
-        cardElement.querySelector('.card__like-value').textContent = result.likes.length;
+        this._element.querySelector('.card__like-value').textContent = result.likes.length;
         evt.target.classList.remove('card__like-active');
       })
       .catch((err) => {
@@ -62,15 +62,15 @@ export class Card {
   }
 
   //функция обработчика лайков на сервере при появлении новой карточки
-  _likeEventListener(cardElement) {
-    cardElement.querySelector('.card__like').addEventListener("click", (evt) => {
+  _likeEventListener() {
+    this._element.querySelector('.card__like').addEventListener("click", (evt) => {
 
       //При клике по сердечку анализируем его состояние на странице и добавляем или снимаем лайк на сервере
       if (!evt.target.classList.contains('card__like-active')) {
-        this._likeAdd(evt, cardElement);
+        this._likeAdd(evt);
       }
       else {
-        this._likeDelete(evt, cardElement);
+        this._likeDelete(evt);
       }
     });
   }
@@ -79,7 +79,7 @@ export class Card {
   _cardDelete(evt, popupDelete) {
     //послать запрос на удаление с сервера  
     api.deleteCard(this._cardId)   //сильное связывание с Api работает
-    //this._apiCardDeleter(this._cardId) //теряется контекст при слабом связывании
+      //this._apiCardDeleter(this._cardId) //теряется контекст при слабом связывании
       .then((result) => {
         console.log(result);
         //закрыть модальное окно после успешного ответа от сервера
@@ -93,9 +93,9 @@ export class Card {
   }
 
   //функция обработчика удаления для своих карточек
-  _deleteOwnCardListener(cardElement, profileId, popupDelete) {
+  _deleteOwnCardListener(profileId, popupDelete) {
     if (this._cardOwner._id === profileId) {
-      cardElement.querySelector('.card__delete').addEventListener('click', (evt) => {
+      this._element.querySelector('.card__delete').addEventListener('click', (evt) => {
         //открыть попап подтверждения удаления
         openPopup(popupDelete);
 
@@ -110,13 +110,13 @@ export class Card {
     }
     else {
       //скрыть корзину на чужих карточках 
-      cardElement.querySelector('.card__delete').classList.add('card__delete_hidden');
+      this._element.querySelector('.card__delete').classList.add('card__delete_hidden');
     }
   }
 
   //функция обработчика открытия zoom карточки по нажатию на картинку 
-  _handleCardClick(cardElement) {
-    cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
+  _handleCardClick() {
+    this._element.querySelector('.card__image').addEventListener('click', (evt) => {
       zoomImage.src = evt.target.closest('.card__image').src;
       zoomImage.alt = evt.target.closest('.card__image').alt;
       zoomTitle.textContent = evt.target.closest('.card__image').nextElementSibling.textContent;
@@ -124,29 +124,35 @@ export class Card {
     });
   }
 
+  _getTemplate() { //копируем содержимое из темплейта    
+    const cardTemplate = document
+      .querySelector(this._cardTemplateSelector)
+      .content;
+
+    const cardElement = cardTemplate
+      .querySelector('.card')
+      .cloneNode(true);
+
+    return cardElement;
+  }
+
   //публичный метод
-  createCard() { //profileId, popupDelete
-    //копируем содержимое из темплейта
-    const cardTemplate = document.querySelector(this._cardTemplateSelector).content;
+  createCard() {
+    this._element = this._getTemplate();
+    this._image = this._element.querySelector('.card__image');
+    this._image.src = this._linkValue;
+    this._image.alt = `img = ${this._placeValue}`;
+    this._text = this._element.querySelector('.card__text');
+    this._text.textContent = this._placeValue;
+    this._cardLikeValue = this._element.querySelector('.card__like-value');
+    this._cardLikeValue.textContent = this._cardLikes.length;
 
-    //добавить карточку если ссылка непустая
-    if (this._linkValue) {
-      const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-      cardElement.querySelector('.card__image').src = this._linkValue;
-      cardElement.querySelector('.card__image').alt = `img = ${this._placeValue}`;
-      cardElement.querySelector('.card__text').textContent = this._placeValue;
-      cardElement.querySelector('.card__like-value').textContent = this._cardLikes.length;
+    this._checkPreviousLikes(profileId);
+    this._likeEventListener();
+    this._deleteOwnCardListener(profileId, popupDelete);
+    this._handleCardClick();
 
-      this._checkPreviousLikes(cardElement, profileId);
-      this._likeEventListener(cardElement);
-      this._deleteOwnCardListener(cardElement, profileId, popupDelete);
-      this._handleCardClick(cardElement);
-
-      return cardElement;
-    }
-    else {
-      return '';
-    }
+    return this._element;
   }
 }
 
