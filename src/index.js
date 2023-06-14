@@ -26,7 +26,17 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     cards.forEach((cardObject) => {
       //добавляем карточки с сервера
       /*const newCardElement = createCard(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner);*/
-      const newCardElement = new Card(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner,'#card-template');
+      const newCardElement = new Card({
+        placeValue: cardObject.name,
+        linkValue: cardObject.link,
+        cardId: cardObject._id,
+        cardLikes: cardObject.likes,
+        cardOwner:  cardObject.owner,
+        apiLikeAdder: (item) => { api.addLike(item) },
+        apiLikeDeleter: (item) => { api.deleteLike(item) },
+        apiCardDeleter: (item) => { api.deleteCard(item) }
+      }, '#card-template'
+      );
       //отображаем на странице перед всеми карточками
       /*cardsTable.prepend(newCardElement);*/
       cardsTable.prepend(newCardElement.createCard());

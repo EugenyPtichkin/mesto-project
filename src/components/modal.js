@@ -142,7 +142,17 @@ function handleCardFormSubmit(evt) {
     return api.addNewCard(placeInput.value, linkInput.value).then((cardData) => {
       //если удалось отослать на сервер, создаем карточку локально и отображаем      
       /*const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);*/
-      const newCardElement = new Card(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner, '#card-template');
+      const newCardElement = new Card({
+        placeValue: cardData.name,
+        linkValue: cardData.link,
+        cardId: cardData._id,
+        cardLikes: cardData.likes,
+        cardOwner:  cardData.owner,
+        apiLikeAdder: (item) => { api.addLike(item) },
+        apiLikeDeleter: (item) => { api.deleteLike(item) },
+        apiCardDeleter: (item) => { api.deleteCard(item) }
+      }, '#card-template'
+      );
       //добавление новых карточек сверху
       /*cardsTable.prepend(newCardElement);*/
       cardsTable.prepend(newCardElement.createCard());

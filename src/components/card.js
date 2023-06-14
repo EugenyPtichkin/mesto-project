@@ -8,19 +8,22 @@ const zoomImage = zoomPopup.querySelector('.popup__zoom-image');
 const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
 
 export class Card {
-  constructor(placeValue, linkValue, cardId, cardLikes, cardOwner, cardTemplateSelector) {
-    this.cardTemplateSelector = cardTemplateSelector;
-    this.placeValue = placeValue;
-    this.linkValue = linkValue;
-    this.cardId = cardId;
-    this.cardLikes = cardLikes;
-    this.cardOwner = cardOwner;
+  constructor({ placeValue, linkValue, cardId, cardLikes, cardOwner, apiLikeAdder, apiLikeDeleter, apiCardDeleter }, cardTemplateSelector) {
+    this._cardTemplateSelector = cardTemplateSelector;
+    this._placeValue = placeValue;
+    this._linkValue = linkValue;
+    this._cardId = cardId;
+    this._cardLikes = cardLikes;
+    this._cardOwner = cardOwner;
+    this._apiLikeAdder = apiLikeAdder;    //ссылка на функцию другого класса Api для слабого связывания
+    this._apiLikeDeleter = apiLikeDeleter;//ссылка на функцию другого класса Api для слабого связывания
+    this._apiCardDeleter = apiCardDeleter;//ссылка на функцию другого класса Api для слабого связывания
   }
 
   //приватные методы
   //функция отображения активных лайков, если при открытии страницы уже есть лайк от текущего пользователя
   _checkPreviousLikes(cardElement, profileId) {
-    const myLikeFound = this.cardLikes.some((item) => {
+    const myLikeFound = this._cardLikes.some((item) => {
       return item._id === profileId;
     });
     if (myLikeFound) {
@@ -30,7 +33,8 @@ export class Card {
 
   //функция добавления лайка на сервере и локально
   _likeAdd(evt, cardElement) {
-    api.addLike(this.cardId)
+    api.addLike(this._cardId)    //сильное связывание с Api работает
+    //this._apiLikeAdder(this._cardId) //теряется контекст при слабом связывании
       .then((result) => {
         //обновляем элемент на странице после успешного ответа с сервера
         cardElement.querySelector('.card__like-value').textContent = result.likes.length;
@@ -39,11 +43,13 @@ export class Card {
       .catch((err) => {
         console.log(err); // выводим ошибку в консоль
       });
+
   }
 
   //функция удаления лайка на сервере и локально
   _likeDelete(evt, cardElement) {
-    api.deleteLike(this.cardId)
+    api.deleteLike(this._cardId)    //сильное связывание с Api работает
+    //this._apiLikeDeleter(this._cardId)  //теряется контекст при слабом связывании
       .then((result) => {
         //обновляем элемент на странице после успешного ответа с сервера
         cardElement.querySelector('.card__like-value').textContent = result.likes.length;
@@ -52,6 +58,7 @@ export class Card {
       .catch((err) => {
         console.log(err); // выводим ошибку в консоль
       });
+
   }
 
   //функция обработчика лайков на сервере при появлении новой карточки
@@ -71,7 +78,8 @@ export class Card {
   //функция удаления карточки на сервере и локально
   _cardDelete(evt, popupDelete) {
     //послать запрос на удаление с сервера  
-    api.deleteCard(this.cardId)
+    api.deleteCard(this._cardId)   //сильное связывание с Api работает
+    //this._apiCardDeleter(this._cardId) //теряется контекст при слабом связывании
       .then((result) => {
         console.log(result);
         //закрыть модальное окно после успешного ответа от сервера
@@ -86,7 +94,7 @@ export class Card {
 
   //функция обработчика удаления для своих карточек
   _deleteOwnCardListener(cardElement, profileId, popupDelete) {
-    if (this.cardOwner._id === profileId) {
+    if (this._cardOwner._id === profileId) {
       cardElement.querySelector('.card__delete').addEventListener('click', (evt) => {
         //открыть попап подтверждения удаления
         openPopup(popupDelete);
@@ -107,7 +115,7 @@ export class Card {
   }
 
   //функция обработчика открытия zoom карточки по нажатию на картинку 
-  _handleCardClick(cardElement, zoomImage, zoomTitle, zoomPopup) {
+  _handleCardClick(cardElement) {
     cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
       zoomImage.src = evt.target.closest('.card__image').src;
       zoomImage.alt = evt.target.closest('.card__image').alt;
@@ -115,24 +123,24 @@ export class Card {
       openPopup(zoomPopup);
     });
   }
-  
+
   //публичный метод
   createCard() { //profileId, popupDelete
     //копируем содержимое из темплейта
-    const cardTemplate = document.querySelector(this.cardTemplateSelector).content;
+    const cardTemplate = document.querySelector(this._cardTemplateSelector).content;
 
     //добавить карточку если ссылка непустая
-    if (this.linkValue) {
+    if (this._linkValue) {
       const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-      cardElement.querySelector('.card__image').src = this.linkValue;
-      cardElement.querySelector('.card__image').alt = `img = ${this.placeValue}`;
-      cardElement.querySelector('.card__text').textContent = this.placeValue;
-      cardElement.querySelector('.card__like-value').textContent = this.cardLikes.length;
+      cardElement.querySelector('.card__image').src = this._linkValue;
+      cardElement.querySelector('.card__image').alt = `img = ${this._placeValue}`;
+      cardElement.querySelector('.card__text').textContent = this._placeValue;
+      cardElement.querySelector('.card__like-value').textContent = this._cardLikes.length;
 
       this._checkPreviousLikes(cardElement, profileId);
       this._likeEventListener(cardElement);
       this._deleteOwnCardListener(cardElement, profileId, popupDelete);
-      this._handleCardClick(cardElement, zoomImage, zoomTitle, zoomPopup);
+      this._handleCardClick(cardElement);
 
       return cardElement;
     }
