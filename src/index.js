@@ -36,7 +36,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         apiLikeAdder: (item) => { api.addLike(item) },
         apiLikeDeleter: (item) => { api.deleteLike(item) },
         apiCardDeleter: (item) => { api.deleteCard(item) }
-      }, '#card-template'
+      }, '#card-template',
+      profileId
       );
       //отображаем на странице перед всеми карточками
       /*cardsTable.prepend(newCardElement);*/
