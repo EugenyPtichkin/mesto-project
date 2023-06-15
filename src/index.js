@@ -6,6 +6,51 @@ import { Section } from './components/Section.js';
 import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
+
+//функция обновления лайков на сервере и локально
+function handleLikeClick(id, previousLikes, card) {
+  if (!previousLikes) {
+    api.addLike(id) 
+      .then((result) => {
+        //обновляем элемент на странице
+        card.setLikes(result.likes)
+        //this._cardLikeValue.textContent = result.likes.length;
+        //this._cardLike.classList.add('card__like-active');
+      })
+      .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
+  } else {
+    api.deleteLike(id)
+      .then((result) => {
+        //обновляем элемент на странице
+        card.setLikes(result.likes)
+        //this._cardLikeValue.textContent = result.likes.length;
+        //this._cardLike.classList.remove('card__like-active');
+      })
+      .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
+  }
+}
+function handleCardClick() {}
+function handleDeleteClick() {}
+
+//функция создания разметки карточки через объект Card
+function createCard(dataCard, id) {
+  const card = new Card({
+    data: dataCard,
+    handleCardClick, //принимает (this._placeValue, this._linkValue) пока не реализована
+    handleLikeClick, //принимает (this._cardId, this._checkPreviousLikes(), this)
+    handleDeleteClick//принимает (this._cardId, this) //пока не реализована
+  },
+    '#card-template',
+    id);
+
+  const newCard = card.generate();
+  return newCard;
+}
+
 //id профиля пользователя храним глобально
 export let profileId = '';
 
@@ -22,27 +67,36 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     profileText.textContent = userData.about;
     profileAvatar.src = userData.avatar;
     profileId = userData._id;
-    // и тут отрисовка карточек
-    cards.reverse(); //более новые карточки вперед
-    cards.forEach((cardObject) => {
-      //добавляем карточки с сервера
-      /*const newCardElement = createCard(cardObject.name, cardObject.link, cardObject._id, cardObject.likes, cardObject.owner);*/
-      const newCardElement = new Card({
-        placeValue: cardObject.name,
-        linkValue: cardObject.link,
-        cardId: cardObject._id,
-        cardLikes: cardObject.likes,
-        cardOwner:  cardObject.owner,
-        apiLikeAdder: (item) => { api.addLike(item) },
-        apiLikeDeleter: (item) => { api.deleteLike(item) },
-        apiCardDeleter: (item) => { api.deleteCard(item) }
-      }, '#card-template',
-      profileId
-      );
-      //отображаем на странице перед всеми карточками
-      /*cardsTable.prepend(newCardElement);*/
-      cardsTable.prepend(newCardElement.createCard());
-    })
+
+    // тут отрисовка карточек
+    cards.reverse(); //более новые карточки вперед    
+
+    //экземпляр класса Section для отрисовки всех карточек с сервера на странице объявляю когда появляется cards
+    const cardList = new Section({
+      items: cards,
+      renderer: (cardItem, id) => { //вызываем свой же метод (append), в него передаем разметку одной карточки
+        cardList.addItem(createCard(cardItem, id));
+      }
+    },
+      '.cards' //в какую секцию вставлять
+    );
+
+    //отрисовка карточек с сервера через метод класса CardList
+    cardList.renderItems(userData._id);
+
+    /*  cards.forEach((cardObject) => {//добавляем карточки с сервера      
+            const newCardElement = new Card({
+            data: cardObject,
+            handleCardClick,
+            handleLikeClick,
+            handleDeleteClick
+          }, '#card-template',
+            profileId
+          );
+          //отображаем на странице перед всеми карточками
+          //cardsTable.prepend(newCardElement);
+          cardsTable.prepend(newCardElement.createCard());
+        }) */
   })
   .catch(err => {
     console.log(err); // выводим ошибку в консоль

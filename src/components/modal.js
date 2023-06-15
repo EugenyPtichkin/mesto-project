@@ -4,6 +4,7 @@ import { Card } from './Card.js';
 import { handleSubmit } from './utils.js';
 import { FormValidator } from './FormValidator.js';
 
+
 //определяем место вставки новой карточки глобально вне функции
 export const cardsTable = document.querySelector('.cards');
 
@@ -143,15 +144,17 @@ function handleCardFormSubmit(evt) {
       //если удалось отослать на сервер, создаем карточку локально и отображаем      
       /*const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);*/
       const newCardElement = new Card({
-        placeValue: cardData.name,
-        linkValue: cardData.link,
-        cardId: cardData._id,
-        cardLikes: cardData.likes,
-        cardOwner:  cardData.owner,
+        data: cardData,
+//      placeValue: cardData.name,
+//      linkValue: cardData.link,
+//      cardId: cardData._id,
+//      cardLikes: cardData.likes,
+//      cardOwner:  cardData.owner,
         apiLikeAdder: (item) => { api.addLike(item) },
         apiLikeDeleter: (item) => { api.deleteLike(item) },
         apiCardDeleter: (item) => { api.deleteCard(item) }
-      }, '#card-template'
+      }, '#card-template',
+      profileId
       );
       //добавление новых карточек сверху
       /*cardsTable.prepend(newCardElement);*/

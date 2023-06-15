@@ -41,9 +41,9 @@ export function request(url, options) {
 // можно сделать универсальную функцию управления текстом кнопки с 3 и 4 необязательными аргументами
 function renderLoading(isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
   if (isLoading) {
-    button.textContent = loadingText
+    button.textContent = loadingText;
   } else {
-    button.textContent = buttonText
+    button.textContent = buttonText;
   }
 }
 

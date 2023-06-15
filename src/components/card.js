@@ -6,16 +6,16 @@
 //const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
 
 export class Card {
-  constructor({ data, handleCardClick, handleLikeClick, handleDeleteClick }, cardTemplateSelector, profileId) {
-    this._cardTemplateSelector = cardTemplateSelector;
-    this._placeValue = data.placeValue;
-    this._linkValue = data.linkValue;
-    this._cardId = data.cardId;
-    this._cardLikes = data.cardLikes;
-    this._cardOwner = data.cardOwner;
+  constructor({ data, handleCardClick, handleLikeClick, handleDeleteClick }, cardTemplateSelector, profileId) {    
+    this._placeValue = data.name; //placeValue
+    this._linkValue = data.link;  //linkValue
+    this._cardId = data._id;      //cardId
+    this._cardLikes = data.likes; //cardLikes
+    this._cardOwner = data.owner; //cardOwner
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._cardTemplateSelector = cardTemplateSelector;
     this._profileId = profileId;
   }
 
@@ -27,6 +27,9 @@ export class Card {
     });
     if (myLikeFound) {
       this._cardLike.classList.add('card__like-active');
+    }
+    else {
+      this._cardLike.classList.remove('card__like-active');
     }
     return myLikeFound;
   }
@@ -138,7 +141,7 @@ export class Card {
     }
   }
 
-  createCard() {
+  generate() {
     this._element = this._getTemplate();
     this._image = this._element.querySelector('.card__image');
     this._image.src = this._linkValue;
@@ -149,17 +152,18 @@ export class Card {
     this._cardLike = this._element.querySelector('.card__like'); //разметка
     this._cardDelete = this._element.querySelector('.card__delete');
 
-    //проверить наличие своих лайков на карточках с сервера
-    this._checkPreviousLikes();
     
     //скрыть корзину на чужих карточках 
-    if (this._cardOwner._id !== this._profileId) {
+    if (this._cardOwner._id !== this._profileId) { 
       this._cardDelete.classList.add('card__delete_hidden');
     }
-    
+
     //обновить признаки лайков и их число
     this.setLikes(this._cardLikes);
 
+    //проверить наличие своих лайков на карточках с сервера
+    this._checkPreviousLikes();
+        
     //установить слушатели событий для новой карточки через внешние методы
     this._setCardEventListener();
     this._setLikeEventListener();
@@ -170,7 +174,7 @@ export class Card {
 
   _setCardEventListener() {
     this._image.addEventListener('click', () => {
-      this._handleCardClick(this._placeValue, this._linkValue);
+      this._handleCardClick(this._placeValue, this._linkValue); 
     })
   }
   _setLikeEventListener() {

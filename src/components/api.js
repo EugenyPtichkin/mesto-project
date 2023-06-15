@@ -78,6 +78,7 @@ class Api {
 
 }
 
+//экземпляр класса Api
 export const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
   headers: {
