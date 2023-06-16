@@ -5,7 +5,7 @@
 //const zoomImage = zoomPopup.querySelector('.popup__zoom-image');
 //const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
 
-export class Card {
+export default class Card {
   constructor({ data, handleCardClick, handleLikeClick, handleDeleteClick }, cardTemplateSelector, profileId) {    
     this._placeValue = data.name; //placeValue
     this._linkValue = data.link;  //linkValue

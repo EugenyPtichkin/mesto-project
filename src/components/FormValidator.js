@@ -1,7 +1,7 @@
 // -------------------------
 // -- Класс FormValidator --
 // -------------------------
-export class FormValidator {
+export default class FormValidator {
   constructor({ inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass }, formSelector) {
     this.formSelector = formSelector;
     this.inputSelector = inputSelector;

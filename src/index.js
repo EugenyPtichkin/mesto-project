@@ -1,13 +1,18 @@
 import './pages/index.css'; // импорт главного файла стилей
 import { api } from './components/Api.js';
-import { Card } from './components/Card.js';
-import { Section } from './components/Section.js';
-/*import { enableValidation } from './components/validate.js';*/
-import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
+import Card from './components/Card.js';
+import Section from './components/Section.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import PopupWithImage from './components/PopupWithImage.js';
+//import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
+// Элементы из страницы со значениями полей текущего профиля
+export const profileName = document.querySelector('.profile__name');
+export const profileText = document.querySelector('.profile__text');
+export const profileAvatar = document.querySelector('.profile__image');
 
-//функция обновления лайков на сервере и локально
+//функция обновления лайков на сервере а затем локально
 function handleLikeClick(id, previousLikes, card) {
   if (!previousLikes) {
     api.addLike(id) 
@@ -33,14 +38,23 @@ function handleLikeClick(id, previousLikes, card) {
       });
   }
 }
-function handleCardClick() {}
+//создть экземпляр класса, обращаться к классу нельзя, только к экземпляру!
+const popupWithImage = new PopupWithImage('.popup_zoom');
+popupWithImage.setEventListeners();//cлушатель на крестик
+
+
+//функция откртия карточки при клике на нее
+function handleCardClick(cardName, cardLink) {
+  popupWithImage.open(cardName, cardLink);
+}
+
 function handleDeleteClick() {}
 
 //функция создания разметки карточки через объект Card
 function createCard(dataCard, id) {
   const card = new Card({
     data: dataCard,
-    handleCardClick, //принимает (this._placeValue, this._linkValue) пока не реализована
+    handleCardClick, //принимает (this._placeValue, this._linkValue) 
     handleLikeClick, //принимает (this._cardId, this._checkPreviousLikes(), this)
     handleDeleteClick//принимает (this._cardId, this) //пока не реализована
   },
@@ -101,18 +115,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .catch(err => {
     console.log(err); // выводим ошибку в консоль
   })
-
-/* -------------------------------------------------- */
-/* -- Включение валидации вызовом enableValidation -- */
-/* -------------------------------------------------- */
-/*enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-submit',
-  inactiveButtonClass: 'popup__button-submit_inactive',
-  inputErrorClass: 'popup__input_type-error',
-  errorClass: 'popup__input-error_active'
-});*/
 
 /* --------------------------------------------- */
 /* -- Обслуживание анимации плавного закрытия -- */

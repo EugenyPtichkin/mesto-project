@@ -1,16 +1,17 @@
-/*import { changeUserInfo, addNewCard, changeAvatar } from './api.js';*/
+/*
+import { changeUserInfo, addNewCard, changeAvatar } from './api.js';
 import { api } from './Api.js';
-import { Card } from './Card.js';
+import Card  from './Card.js';
 import { handleSubmit } from './utils.js';
-import { FormValidator } from './FormValidator.js';
+import FormValidator from './FormValidator.js';
 
 
 //определяем место вставки новой карточки глобально вне функции
 export const cardsTable = document.querySelector('.cards');
 
-/* -------------------------------------------------------------------- */
-/* -- Обслуживание закрытия любого модального окна по кнопке крестик -- */
-/* -------------------------------------------------------------------- */
+// --------------------------------------------------------------------
+// -- Обслуживание закрытия любого модального окна по кнопке крестик --/
+// --------------------------------------------------------------------
 // Все кнопки-крестики для закрытия окон через NodeList
 const closeBtns = document.querySelectorAll('.popup__button-close');
 // Перебор по всем кнопкам из NodeList
@@ -22,13 +23,13 @@ closeBtns.forEach((button) => {
     closePopup(popupNear));
 });
 
-/* -------------------------------------------------------- */
-/* -- Отдельные функции закрытия-открытия модальных окон -- */
-/* -------------------------------------------------------- */
+// -------------------------------------------------------- 
+// -- Отдельные функции закрытия-открытия модальных окон -- 
+// -------------------------------------------------------- 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
-  popup.addEventListener("click", closePopupModalListener); /* Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия*/
-  document.addEventListener('keydown', closePopupEscListener); /* Закрытие модального окна при нажатии на Esc */
+  popup.addEventListener("click", closePopupModalListener); // Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия
+  document.addEventListener('keydown', closePopupEscListener); // Закрытие модального окна при нажатии на Esc 
 
   if (popup.querySelector('.popup__form')) { //если в новом окне есть форма, тогда
     //объявление нового элемента класса FormValidator для открывающегося окна popup
@@ -48,8 +49,8 @@ export function openPopup(popup) {
 
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  popup.removeEventListener("click", closePopupModalListener);   /* убрать слушатель на модальное окно */
-  document.removeEventListener('keydown', closePopupEscListener);/* убрать слушатель на esc */
+  popup.removeEventListener("click", closePopupModalListener);   // убрать слушатель на модальное окно
+  document.removeEventListener('keydown', closePopupEscListener);// убрать слушатель на esc
 }
 function closePopupModalListener(evt) {
   if (evt.currentTarget === evt.target) {
@@ -63,9 +64,9 @@ function closePopupEscListener(evt) {
   }
 }
 
-/* --------------------------------------------------- */
-/* -- Обслуживание модального окна редакции профиля -- */
-/* --------------------------------------------------- */
+// ---------------------------------------------------
+// -- Обслуживание модального окна редакции профиля --
+// ---------------------------------------------------
 // Элементы из страницы со значениями полей текущего профиля
 export const profileName = document.querySelector('.profile__name');
 export const profileText = document.querySelector('.profile__text');
@@ -87,9 +88,9 @@ openProfileBtn.addEventListener('click', () => {
   openPopup(profilePopup);
 });
 
-/* ------------------------------------------------------- */
-/* -- Обработчик «отправки» формы для изменения профиля -- */
-/* ------------------------------------------------------- */
+// -------------------------------------------------------
+// -- Обработчик «отправки» формы для изменения профиля --
+// -------------------------------------------------------
 // оптимизация обработчика сабмита формы профиля
 function handleProfileFormSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
@@ -110,9 +111,9 @@ function handleProfileFormSubmit(evt) {
 formProfileElement.addEventListener('submit', handleProfileFormSubmit);
 
 
-/* ------------------------------------------------------ */
-/* -- Обслуживание модального окна добавления карточки -- */
-/* ------------------------------------------------------ */
+// ------------------------------------------------------
+// -- Обслуживание модального окна добавления карточки --
+// ------------------------------------------------------
 // Ссылка на окно редакции карточки
 export const cardPopup = document.querySelector('.popup_add');
 // Форма ввода карточки в DOM
@@ -128,13 +129,13 @@ const openCardBtn = document.querySelector('.profile__button-add');
 openCardBtn.addEventListener('click', () => {
   formCardElement.reset(); //сброс ранее введенных значений  
   addButton.classList.add('popup__button-submit_inactive');//установка неактивного состояния кнопки отправки при открытии окна
-  addButton.disabled = true;    /* установить свойство неактивно, чтобы заблокировать Enter */
+  addButton.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
   openPopup(cardPopup);
 });
 
-/* --------------------------------------------------------- */
-/* -- Обработчик «отправки» формы для добавления карточки -- */
-/* --------------------------------------------------------- */
+// --------------------------------------------------------- 
+// -- Обработчик «отправки» формы для добавления карточки -- 
+// --------------------------------------------------------- 
 // оптимизация обработчика сабмита новой карточки
 function handleCardFormSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
@@ -142,7 +143,7 @@ function handleCardFormSubmit(evt) {
     // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
     return api.addNewCard(placeInput.value, linkInput.value).then((cardData) => {
       //если удалось отослать на сервер, создаем карточку локально и отображаем      
-      /*const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);*/
+      //const newCardElement = createCard(cardData.name, cardData.link, cardData._id, cardData.likes, cardData.owner);
       const newCardElement = new Card({
         data: cardData,
 //      placeValue: cardData.name,
@@ -157,7 +158,7 @@ function handleCardFormSubmit(evt) {
       profileId
       );
       //добавление новых карточек сверху
-      /*cardsTable.prepend(newCardElement);*/
+      //cardsTable.prepend(newCardElement);
       cardsTable.prepend(newCardElement.createCard());
       //Закрыть окно попапа после успешного ответа от сервера
       closePopup(cardPopup);
@@ -169,9 +170,9 @@ function handleCardFormSubmit(evt) {
 // Прикрепляем обработчик к форме:
 formCardElement.addEventListener('submit', handleCardFormSubmit);
 
-/* ------------------------------------------------------------------ */
-/* -- Обслуживание модального окна подтверждения удаления карточки -- */
-/* ------------------------------------------------------------------ */
+// ------------------------------------------------------------------
+// -- Обслуживание модального окна подтверждения удаления карточки --
+// ------------------------------------------------------------------
 // Ссылка на окно удаления карточки
 export const popupDelete = document.querySelector('.popup_delete');
 // Кнопка подтверждения
@@ -186,9 +187,9 @@ export function handleDeleteAccept() {
   })
 }
 
-/* --------------------------------------------------------- */
-/* -- Обслуживание модального окна редактирования аватара -- */
-/* --------------------------------------------------------- */
+// ---------------------------------------------------------
+// -- Обслуживание модального окна редактирования аватара --
+// ---------------------------------------------------------
 // Ссылка на окно редакции карточки
 export const avatarPopup = document.querySelector('.popup_avatar-update');
 // Форма ввода карточки в DOM
@@ -203,13 +204,13 @@ const newAvatarBtn = document.querySelector('.profile__button-avatar');
 newAvatarBtn.addEventListener('click', () => {
   formAvatarElement.reset(); //сброс ранее введенных значений  
   changeAvatarButton.classList.add('popup__button-submit_inactive');//установка неактивного состояния кнопки отправки при открытии окна
-  changeAvatarButton.disabled = true;    /* установить свойство неактивно, чтобы заблокировать Enter */
+  changeAvatarButton.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
   openPopup(avatarPopup);
 });
 
-/* ------------------------------------------------------- */
-/* -- Обработчик «отправки» формы для изменения аватара -- */
-/* ------------------------------------------------------- */
+// -------------------------------------------------------
+// -- Обработчик «отправки» формы для изменения аватара --
+// -------------------------------------------------------
 // оптимизация обработчика сабмита изменения аватара
 function handleChangeAvatarSubmit(evt) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
@@ -228,3 +229,4 @@ function handleChangeAvatarSubmit(evt) {
 
 // Прикрепляем обработчик к форме:
 formAvatarElement.addEventListener('submit', handleChangeAvatarSubmit);
+*/
