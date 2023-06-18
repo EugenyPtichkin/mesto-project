@@ -5,6 +5,7 @@ import Section from './components/Section.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
+import FormValidator from './components/FormValidator.js';
 import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
 //id профиля пользователя храним глобально
@@ -38,24 +39,24 @@ const profilePopup = document.querySelector('.popup_profile');
 const profileInputs = profilePopup.querySelectorAll('.popup__input');
 // Запуск функции редакции профиля по нажатию на кнопку
 openProfileBtn.addEventListener('click', () => {
-  popupProfileForm.open();  
+  popupProfileForm.open();
   const userPreviousData = userInfo.getUserInfo();
-  profileInputs.forEach( (input) => {
+  profileInputs.forEach((input) => {
     input.value = userPreviousData[input.name];
   })
 });
 
 //внешяя функция формы для редакции профиля
-function handlePopupProfile(formData)  {
+function handlePopupProfile(formData) {
   api.changeUserInfo(formData.user_name, formData.user_occupation)
     .then((userData) => {
       userInfo.setUserInfo({
         name: userData.name,
-        info:  userData.about,
-        avatar:  userData.avatar
+        info: userData.about,
+        avatar: userData.avatar
       });
       //Закрыть окно попапа после успешного ответа от сервера
-      popupProfileForm.close(); 
+      popupProfileForm.close();
     });
 }
 
@@ -79,7 +80,7 @@ function handlePopupAddCard(formData) {
       //экземпляр класса Section для отрисовки одной карточки
       const cardSingle = new Section({
         items: {},
-        renderer: (cardItem, id) => {} //неважно какой назначить метод, не будет использован
+        renderer: (cardItem, id) => { } //неважно какой назначить метод, не будет использован
       },
         '.cards' //в какую секцию вставлять
       );
@@ -150,8 +151,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // тут установка данных пользователя через класс
     userInfo.setUserInfo({
       name: userData.name,
-      info:  userData.about,
-      avatar:  userData.avatar
+      info: userData.about,
+      avatar: userData.avatar
     });
     profileId = userData._id;
 
@@ -181,3 +182,30 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 // ---------------------------------------------
 animationStartFunction();
 animationEndFunction();
+
+//-----------------------------------------------------------------
+// Запустить валидацию через класс для модальных окон с формами ввода
+//-----------------------------------------------------------------
+const popupAddCardValidator = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-submit',
+  inactiveButtonClass: 'popup__button-submit_inactive',
+  inputErrorClass: 'popup__input_type-error',
+  errorClass: 'popup__input-error_active'
+},
+  document.querySelector('.popup_add') //ссылка на форму открывающегося окна
+);
+
+const popupEditProfileValidator = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-submit',
+  inactiveButtonClass: 'popup__button-submit_inactive',
+  inputErrorClass: 'popup__input_type-error',
+  errorClass: 'popup__input-error_active'
+},
+  document.querySelector('.popup_profile') //ссылка на форму открывающегося окна
+);
+
+//Включение валидации для вновь открытого модального окна с формами ввода
+popupAddCardValidator.enableValidation();
+popupEditProfileValidator.enableValidation();
