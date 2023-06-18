@@ -4,9 +4,10 @@ import Card from './components/Card.js';
 import Section from './components/Section.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithSubmit from './components/PopupWithSubmit.js';
 import UserInfo from './components/UserInfo.js';
 import FormValidator from './components/FormValidator.js';
-import { animationStartFunction, animationEndFunction } from './components/utils.js';
+import { handleSubmit, animationStartFunction, animationEndFunction } from './components/utils.js';
 
 //id профиля пользователя храним глобально
 export let profileId = '';
@@ -30,19 +31,27 @@ popupProfileForm.setEventListeners();//запустить cлушатель на
 const popupAvatarForm = new PopupWithForm('.popup_avatar-update', handlePopupAvatar);
 popupAvatarForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
 
+//создать экземпляр класса кнопки подтверждения удаления карточки
+const popupConfirm = new PopupWithSubmit('.popup_delete', handlePopupDelete);
+popupConfirm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
 
 //создать экземпляр класса с данными о пользователе
 const userInfo = new UserInfo('.profile__name', '.profile__text', '.profile__image');
 
+//-----------------------------------------------------------------
+// Пустая функция ожидания подтверждения удаления
+//-----------------------------------------------------------------
+function handlePopupDelete() { };//никакого submit делать не надо, только ожидание нажатия на кнопку подтверждения
 
 //-----------------------------------------------------------------
 // Обслуживание редакции профиля
 //-----------------------------------------------------------------
-// кнопка открытия окна профиля
+//кнопка открытия окна профиля
 const openProfileBtn = document.querySelector('.profile__button-edit');
 const profilePopup = document.querySelector('.popup_profile');
 const profileInputs = profilePopup.querySelectorAll('.popup__input');
-// Запуск функции редакции профиля по нажатию на кнопку
+
+//запуск слушателя редакции профиля по нажатию на кнопку
 openProfileBtn.addEventListener('click', () => {
   popupProfileForm.open();
   const userPreviousData = userInfo.getUserInfo();
@@ -68,19 +77,10 @@ function handlePopupProfile(formData) {
 //-----------------------------------------------------------------
 // Обслуживание редакции аватара профиля
 //-----------------------------------------------------------------
-// Ссылка на окно редакции карточки
-//const avatarPopup = document.querySelector('.popup_avatar-update');
-// Форма ввода карточки в DOM
-//const formAvatarElement = avatarPopup.querySelector('.popup__form');
-// Поля ввода формы профиля в DOM 
-//export const avatarLinkInput = formAvatarElement.querySelector('.popup__input_link');
-//const changeAvatarButton = formAvatarElement.querySelector('.popup__button-submit');
-
-// Запуск функции редакции профиля по нажатию на аватар
+//редакция аватара профиля по нажатию на кнопку под аватаром
 const newAvatarBtn = document.querySelector('.profile__button-avatar');
-//запуск функций добавления карточки по нажатию на кнопки
+//запуск слушателя добавления карточки по нажатию на кнопки
 newAvatarBtn.addEventListener('click', () => {
-//  changeAvatarButton.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
   popupAvatarForm.open();
 });
 
@@ -153,20 +153,60 @@ function handleLikeClick(id, previousLikes, card) {
   }
 }
 
-//функция открытия карточки при клике на нее
+//функция открытия карточки 
 function handleCardClick(cardName, cardLink) {
   popupWithImage.open(cardName, cardLink);
 }
 
-function handleDeleteClick() { }
+// Обслуживание модального окна подтверждения удаления карточки
+// Ссылка на окно удаления карточки
+const popupDelete = document.querySelector('.popup_delete');
+// Кнопка подтверждения
+const buttonDelete = popupDelete.querySelector('.popup__button-submit');
 
-//функция создания разметки карточки через объект Card
+// Промисификация кнопки удаления карточки
+function handleDeleteAccept() {
+  return new Promise((resolve) => {
+    buttonDelete.onclick = function () { //отдать промис в состоянии разрешен только после нажатия на кнопку
+      resolve();
+    }
+  })
+}
+
+//функция удаления карточки
+function handleDeleteClick(id, card) {
+
+  popupConfirm.open();//открыть попап подтверждения удаления
+
+  handleDeleteAccept() //ожидаем промис после подтверждения нажатия клавиши
+    .then(() => {
+      //послать запрос на удаление с сервера  
+      api.deleteCard(id)
+        .then((result) => {
+          console.log(result);
+          //закрыть модальное окно после успешного ответа от сервера
+          popupConfirm.close();
+          //удалить из DOM карточку локально после успешного ответа от сервера                          
+          card.removeCard(); //через новый метод класса Card
+        })
+        .catch((err) => {
+          console.log(err); // выводим ошибку в консоль
+        });
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    });
+}
+
+// ------------------------------------------------------------
+// Функция создания разметки карточки через объект Card
+// ------------------------------------------------------------
 function createCard(dataCard, id) {
   const card = new Card({
     data: dataCard,
     handleCardClick, //принимает (this._placeValue, this._linkValue) 
     handleLikeClick, //принимает (this._cardId, this._checkPreviousLikes(), this)
-    handleDeleteClick//принимает (this._cardId, this) //пока не реализована
+    handleDeleteClick//принимает (this._cardId, this)
   },
     '#card-template',
     id);
@@ -174,7 +214,6 @@ function createCard(dataCard, id) {
   const newCard = card.generate();
   return newCard;
 }
-
 
 
 // ------------------------------------------------------------

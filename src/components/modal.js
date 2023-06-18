@@ -1,5 +1,5 @@
-/*
-import { changeUserInfo, addNewCard, changeAvatar } from './api.js';
+
+//import { changeUserInfo, addNewCard, changeAvatar } from './api.js';
 import { api } from './Api.js';
 import Card  from './Card.js';
 import { handleSubmit } from './utils.js';
@@ -229,4 +229,3 @@ function handleChangeAvatarSubmit(evt) {
 
 // Прикрепляем обработчик к форме:
 formAvatarElement.addEventListener('submit', handleChangeAvatarSubmit);
-*/
