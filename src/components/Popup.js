@@ -28,7 +28,7 @@ export default class Popup {
 
     _closePopupModalListener(evt) {
         if (evt.currentTarget === evt.target) {
-            this.close();  //closePopup(evt.target);
+            this.close(); 
         }
     }
 

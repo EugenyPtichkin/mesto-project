@@ -9,6 +9,12 @@ export default class PopupWithForm extends Popup {
         this._formSubmitButton = this._formItem.querySelector('.popup__button-submit');// кнопка отправки
     }
 
+    open() {
+        super.open();
+        this._formSubmitButton.disabled = true;/* установить свойство неактивно, чтобы заблокировать Enter */
+        this._formSubmitButton.classList.add('popup__button-submit_inactive'); /* притушить кнопку submit */
+    }
+
     close() {
         super.close();
         this._formItem.reset(); //дополнительно сбрасываем форму при закрытии
