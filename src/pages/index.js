@@ -1,13 +1,13 @@
-import './pages/index.css'; // импорт главного файла стилей
-import { api } from './components/Api.js';
-import Card from './components/Card.js';
-import Section from './components/Section.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithSubmit from './components/PopupWithSubmit.js';
-import UserInfo from './components/UserInfo.js';
-import FormValidator from './components/FormValidator.js';
-import { handleSubmit, animationStartFunction, animationEndFunction } from './components/utils.js';
+import './index.css'; // импорт главного файла стилей
+import { api } from '../components/Api.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
+import UserInfo from '../components/UserInfo.js';
+import FormValidator from '../components/FormValidator.js';
+import { handleSubmit, animationStartFunction, animationEndFunction } from '../components/utils.js';
 
 //id профиля пользователя храним глобально
 export let profileId = '';
