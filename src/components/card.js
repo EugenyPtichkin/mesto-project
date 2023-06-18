@@ -1,10 +1,3 @@
-//import { openPopup, closePopup, popupDelete, handleDeleteAccept } from './modal.js';
-
-// Ссылка на zoom окна карточки и свойства картинки в zoom`е находятся однократно
-//const zoomPopup = document.querySelector('.popup_zoom');
-//const zoomImage = zoomPopup.querySelector('.popup__zoom-image');
-//const zoomTitle = zoomPopup.querySelector('.popup__zoom-title');
-
 export default class Card {
   constructor({ data, handleCardClick, handleLikeClick, handleDeleteClick }, cardTemplateSelector, profileId) {    
     this._placeValue = data.name; //placeValue
@@ -33,86 +26,6 @@ export default class Card {
     }
     return myLikeFound;
   }
-  /*
-    //функция добавления лайка ТОЛЬКО локально - запрос на сервер вынесен в index.js
-    _likeAdd() {
-      api.addLike(this._cardId)    //сильное связывание с Api работает
-      //this._apiLikeAdder(this._cardId) //теряется контекст при слабом связывании
-        .then((result) => {
-          //обновляем элемент на странице
-          this._cardLikeValue.textContent = result.likes.length;
-          this._cardLike.classList.add('card__like-active');
-        })
-        .catch((err) => {
-          console.log(err); // выводим ошибку в консоль
-        });
-    }
-  
-    //функция удаления лайка ТОЛЬКО локально - запрос на сервер вынесен в index.js
-    _likeDelete() {
-      api.deleteLike(this._cardId)    //сильное связывание с Api работает
-      //this._apiLikeDeleter(this._cardId)  //теряется контекст при слабом связывании
-        .then((result) => {
-          //обновляем элемент на странице 
-          this._cardLikeValue.textContent = result.likes.length;
-          this._cardLike.classList.remove('card__like-active');
-        })
-        .catch((err) => {
-          console.log(err); // выводим ошибку в консоль
-        });
-    }
-    */
-
-  //функция удаления карточки ТОЛЬКО локально - запрос на сервер вынесен в index.js
-  /*  _cardDelete(evt, popupDelete) {
-      //послать запрос на удаление с сервера  
-      api.deleteCard(this._cardId)   //сильное связывание с Api работает
-        //this._apiCardDeleter(this._cardId) //теряется контекст при слабом связывании
-        .then((result) => {
-          console.log(result);
-          //закрыть модальное окно после успешного ответа от сервера
-          closePopup(popupDelete);
-          //удалить из DOM карточку локально после успешного ответа от сервера                
-          evt.target.closest('.card').remove();
-        })
-        .catch((err) => {
-          console.log(err); // выводим ошибку в консоль
-        });
-    }*/
-
-  //функция обработчика удаления для своих карточек - вынесена в index.js
-  /* _deleteOwnCardListener(popupDelete) {
-     if (this._cardOwner._id === this._profileId) {
-       this._element.querySelector('.card__delete').addEventListener('click', (evt) => {
-         //открыть попап подтверждения удаления
-         openPopup(popupDelete);
-  
-         handleDeleteAccept() //ожидаем промис после подтверждения нажатия клавиши
-           .then(() => {
-             //this._cardDelete(evt, popupDelete);            
-             closePopup(popupDelete);  //закрыть модальное окно            
-             this.element.remove();   //удалить из DOM карточку локально
-           })
-           .catch((err) => {
-             console.log(err); // выводим ошибку в консоль
-           });
-       });
-     }
-     else {
-       //скрыть корзину на чужих карточках 
-       this._element.querySelector('.card__delete').classList.add('card__delete_hidden');
-     }
-   }*/
-
-  //функция обработчика открытия zoom карточки по нажатию на картинку - вынесена в index.js
-  /*  _handleCardClick() {
-      this._element.querySelector('.card__image').addEventListener('click', (evt) => {
-        zoomImage.src = evt.target.closest('.card__image').src;
-        zoomImage.alt = evt.target.closest('.card__image').alt;
-        zoomTitle.textContent = evt.target.closest('.card__image').nextElementSibling.textContent;
-        openPopup(zoomPopup);
-      });
-    }*/
 
   _getTemplate() { //копируем содержимое из темплейта    
     const cardTemplate = document
