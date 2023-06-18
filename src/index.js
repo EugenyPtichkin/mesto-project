@@ -61,17 +61,22 @@ openProfileBtn.addEventListener('click', () => {
 });
 
 //внешняя функция формы для редакции профиля
-function handlePopupProfile(formData) {
-  api.changeUserInfo(formData.user_name, formData.user_occupation)
-    .then((userData) => {
-      userInfo.setUserInfo({
-        name: userData.name,
-        info: userData.about,
-        avatar: userData.avatar
+function handlePopupProfile(formData, evt) {
+  // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
+  function makeRequest() {
+    return api.changeUserInfo(formData.user_name, formData.user_occupation)
+      .then((userData) => {
+        userInfo.setUserInfo({
+          name: userData.name,
+          info: userData.about,
+          avatar: userData.avatar
+        });
+        //Закрыть окно попапа после успешного ответа от сервера
+        popupProfileForm.close();
       });
-      //Закрыть окно попапа после успешного ответа от сервера
-      popupProfileForm.close();
-    });
+  }
+  // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, evt);
 }
 
 //-----------------------------------------------------------------
@@ -85,15 +90,19 @@ newAvatarBtn.addEventListener('click', () => {
 });
 
 //внешняя функция формы для редакции аватара
-function handlePopupAvatar(formData) {
-  api.changeAvatar(formData['img-link'])
-    .then((avatarData) => {
-      userInfo.setAvatarInfo({
-        avatar: avatarData.avatar
+function handlePopupAvatar(formData, evt) {
+  function makeRequest() {
+    return api.changeAvatar(formData['img-link'])
+      .then((avatarData) => {
+        userInfo.setAvatarInfo({
+          avatar: avatarData.avatar
+        });
+        //Закрыть окно попапа после успешного ответа от сервера
+        popupAvatarForm.close();
       });
-      //Закрыть окно попапа после успешного ответа от сервера
-      popupAvatarForm.close();
-    });
+  }
+  // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, evt);
 }
 
 //-----------------------------------------------------------------
@@ -107,24 +116,28 @@ openCardBtn.addEventListener('click', () => {
 });
 
 //внешяя функция формы для отсылки карточки
-function handlePopupAddCard(formData) {
-  api.addNewCard(formData['place-name'], formData['img-link'])
-    .then((cardData) => {
-      //если удалось отослать на сервер, создаем карточку локально и отображаем      
-      const newAddedCard = createCard(cardData, profileId);
+function handlePopupAddCard(formData, evt) {
+  function makeRequest() {
+    return api.addNewCard(formData['place-name'], formData['img-link'])
+      .then((cardData) => {
+        //если удалось отослать на сервер, создаем карточку локально и отображаем      
+        const newAddedCard = createCard(cardData, profileId);
 
-      //экземпляр класса Section для отрисовки одной карточки
-      const cardSingle = new Section({
-        items: {},
-        renderer: (cardItem, id) => { } //неважно какой назначить метод, не будет использован
-      },
-        '.cards' //в какую секцию вставлять
-      );
+        //экземпляр класса Section для отрисовки одной карточки
+        const cardSingle = new Section({
+          items: {},
+          renderer: (cardItem, id) => { } //неважно какой назначить метод, не будет использован
+        },
+          '.cards' //в какую секцию вставлять
+        );
 
-      cardSingle.addItem(newAddedCard);
-      //Закрыть окно попапа после успешного ответа от сервера
-      popupAddCardForm.close(); //closePopup(cardPopup);
-    });
+        cardSingle.addItem(newAddedCard);
+        //Закрыть окно попапа после успешного ответа от сервера
+        popupAddCardForm.close(); //closePopup(cardPopup);
+      });
+  }
+  // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, evt);
 }
 
 //----------------------------------------------------------
