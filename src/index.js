@@ -4,14 +4,95 @@ import Card from './components/Card.js';
 import Section from './components/Section.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
-//import { cardsTable, profileName, profileText, profileAvatar } from './components/modal.js';
-//import { animationStartFunction, animationEndFunction } from './components/utils.js';
+import UserInfo from './components/UserInfo.js';
+import { animationStartFunction, animationEndFunction } from './components/utils.js';
 
-// Элементы из страницы со значениями полей текущего профиля
-export const profileName = document.querySelector('.profile__name');
-export const profileText = document.querySelector('.profile__text');
-export const profileAvatar = document.querySelector('.profile__image');
+//id профиля пользователя храним глобально
+export let profileId = '';
 
+//-----------------------------------------------------------------
+// Экземпляры классов - модальные окна и инфо о пользователе
+//-----------------------------------------------------------------
+//создать экземпляр класса zoom карточки, обращаться к классу нельзя, только к экземпляру!
+const popupWithImage = new PopupWithImage('.popup_zoom');
+popupWithImage.setEventListeners();//запустить cлушатель на крестик
+
+//создать экземпляр класса формы новой карточки
+const popupAddCardForm = new PopupWithForm('.popup_add', handlePopupAddCard);
+popupAddCardForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
+
+//создать экземпляр класса формы профиля
+const popupProfileForm = new PopupWithForm('.popup_profile', handlePopupProfile);
+popupProfileForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
+
+//создать экземпляр класса с данными о пользователе
+const userInfo = new UserInfo('.profile__name', '.profile__text', '.profile__image');
+
+
+//-----------------------------------------------------------------
+// Обслуживание редакции профиля
+//-----------------------------------------------------------------
+// кнопка открытия окна профиля
+const openProfileBtn = document.querySelector('.profile__button-edit');
+const profilePopup = document.querySelector('.popup_profile');
+const profileInputs = profilePopup.querySelectorAll('.popup__input');
+// Запуск функции редакции профиля по нажатию на кнопку
+openProfileBtn.addEventListener('click', () => {
+  popupProfileForm.open();  
+  const userPreviousData = userInfo.getUserInfo();
+  profileInputs.forEach( (input) => {
+    input.value = userPreviousData[input.name];
+  })
+});
+
+//внешяя функция формы для редакции профиля
+function handlePopupProfile(formData)  {
+  api.changeUserInfo(formData.user_name, formData.user_occupation)
+    .then((userData) => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        info:  userData.about,
+        avatar:  userData.avatar
+      });
+      //Закрыть окно попапа после успешного ответа от сервера
+      popupProfileForm.close(); 
+    });
+}
+
+//-----------------------------------------------------------------
+// Обслуживание добавления новой карточки
+//-----------------------------------------------------------------
+//кнопка открытия окна новой карточки
+const openCardBtn = document.querySelector('.profile__button-add');
+//запуск слушателя добавления карточки по нажатию на кнопку
+openCardBtn.addEventListener('click', () => {
+  popupAddCardForm.open();
+});
+
+//внешяя функция формы для отсылки карточки
+function handlePopupAddCard(formData) {
+  api.addNewCard(formData['place-name'], formData['img-link'])
+    .then((cardData) => {
+      //если удалось отослать на сервер, создаем карточку локально и отображаем      
+      const newAddedCard = createCard(cardData, profileId);
+
+      //экземпляр класса Section для отрисовки одной карточки
+      const cardSingle = new Section({
+        items: {},
+        renderer: (cardItem, id) => {} //неважно какой назначить метод, не будет использован
+      },
+        '.cards' //в какую секцию вставлять
+      );
+
+      cardSingle.addItem(newAddedCard);
+      //Закрыть окно попапа после успешного ответа от сервера
+      popupAddCardForm.close(); //closePopup(cardPopup);
+    });
+}
+
+//----------------------------------------------------------
+// Внешние методы функиции createCard
+//----------------------------------------------------------
 //функция обновления лайков на сервере а затем локально
 function handleLikeClick(id, previousLikes, card) {
   if (!previousLikes) {
@@ -34,52 +115,8 @@ function handleLikeClick(id, previousLikes, card) {
       });
   }
 }
-//создать экземпляр класса zoom карточки, обращаться к классу нельзя, только к экземпляру!
-const popupWithImage = new PopupWithImage('.popup_zoom');
-popupWithImage.setEventListeners();//запустить cлушатель на крестик
 
-//создать экземпляр класса формы профиля
-const popupProfileForm = new PopupWithForm('.popup_profile', handlePopupProfile);
-popupProfileForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
-
-function handlePopupProfile(formData) {
-}
-
-//создать экземпляр класса формы новой карточки
-const popupAddCardForm = new PopupWithForm('.popup_add', handlePopupAddCard);
-popupAddCardForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
-
-// Открытие окна новой карточки
-const openCardBtn = document.querySelector('.profile__button-add');
-//запуск слушателя добавления карточки по нажатию на кнопки
-openCardBtn.addEventListener('click', () => {
-  popupAddCardForm.open();
-});
-
-function handlePopupAddCard(formData) {
-  api.addNewCard(formData['place-name'], formData['img-link'])
-    .then((cardData) => {
-      //если удалось отослать на сервер, создаем карточку локально и отображаем      
-      const newAddedCard = createCard(cardData, profileId);
-
-      //экземпляр класса Section для отрисовки одной карточки
-      const cardSingle = new Section({
-        items: {},
-        renderer: (cardItem, id) => {} //неважно какой назнчить метод, не будет использован
-      },
-        '.cards' //в какую секцию вставлять
-      );
-
-      cardSingle.addItem(newAddedCard);
-      //Закрыть окно попапа после успешного ответа от сервера
-      popupAddCardForm.close(); //closePopup(cardPopup);
-    });
-}
-
-
-
-
-//функция откртия карточки при клике на нее
+//функция открытия карточки при клике на нее
 function handleCardClick(cardName, cardLink) {
   popupWithImage.open(cardName, cardLink);
 }
@@ -101,21 +138,21 @@ function createCard(dataCard, id) {
   return newCard;
 }
 
-//id профиля пользователя храним глобально
-export let profileId = '';
 
-/* ------------------------------------------------------------ */
-/* -- Ждем окончания загрузки и профиля и карточек с сервера -- */
-/* ------------------------------------------------------------ */
+
+// ------------------------------------------------------------
+// -- Ждем окончания загрузки и профиля и карточек с сервера --
+// ------------------------------------------------------------
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
-  .then(([userData, cards]) => {// отображаем результат на странице    
-    console.log(userData);
-    console.log(cards);
-    // тут установка данных пользователя
-    profileName.textContent = userData.name;
-    profileText.textContent = userData.about;
-    profileAvatar.src = userData.avatar;
+  .then(([userData, cards]) => {// прием данных с деструтиризацией 
+    console.log(userData);  //отображаем данные пользователя в логе
+    console.log(cards);     //отображаем текущие карточки в логе
+    // тут установка данных пользователя через класс
+    userInfo.setUserInfo({
+      name: userData.name,
+      info:  userData.about,
+      avatar:  userData.avatar
+    });
     profileId = userData._id;
 
     // тут отрисовка карточек
@@ -131,17 +168,16 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       '.cards' //в какую секцию вставлять
     );
 
-    //отрисовка карточек с сервера через метод класса CardList
-    cardList.renderItems(userData._id);
-
+    //отрисовка карточек с сервера через метод класса CardList от имени текущего пользователя
+    cardList.renderItems(profileId);
 
   })
   .catch(err => {
     console.log(err); // выводим ошибку в консоль
   })
 
-/* --------------------------------------------- */
-/* -- Обслуживание анимации плавного закрытия -- */
-/* --------------------------------------------- */
-//animationStartFunction();
-//animationEndFunction();
+// ---------------------------------------------
+// -- Обслуживание анимации плавного закрытия --
+// ---------------------------------------------
+animationStartFunction();
+animationEndFunction();

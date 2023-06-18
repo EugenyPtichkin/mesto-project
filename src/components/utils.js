@@ -1,7 +1,7 @@
 /* --------------------------------------------- */
 /* -- Обслуживание анимации плавного закрытия -- */
 /* --------------------------------------------- */
-/*export function animationStartFunction() {
+export function animationStartFunction() {
   document.addEventListener('animationstart', function (evt) {
     if (evt.animationName === 'fade-in') {
       evt.target.classList.add('did-fade-in');
@@ -15,7 +15,7 @@ export function animationEndFunction() {
     }
   });
 }
-*/
+
 /* -------------------------------- */
 /* -- Проверка ответа от сервера -- */
 /* -------------------------------- */

@@ -11,7 +11,7 @@ export default class PopupWithForm extends Popup {
 
     close() {
         super.close();
-//        this._formItem.reset(); //дополнительно сбрасываем форму //временно убрал для отладки - что-то сбрасывает форму при обработке
+        this._formItem.reset(); //дополнительно сбрасываем форму при закрытии
     }
 
     _getInputValues() {  //перебирая по всем полям ввода создаем объекты имя: значение
