@@ -1,9 +1,9 @@
-import { request } from './utils.js';
+import { request } from '../utils/utils.js';
 
 // ---------------
 // -- Класс Api --
 // ---------------
-class Api {
+export default class Api {
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers
@@ -77,12 +77,3 @@ class Api {
   }
 
 }
-
-//экземпляр класса Api
-export const api = new Api({
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
-  headers: {
-    authorization: '72c9f5e3-e302-4291-9e92-5cdf6c091286',
-    'Content-Type': 'application/json'
-  }
-});

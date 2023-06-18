@@ -1,5 +1,5 @@
 import './index.css'; // импорт главного файла стилей
-import { api } from '../components/Api.js';
+import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -7,7 +7,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
-import { handleSubmit, animationStartFunction, animationEndFunction } from '../components/utils.js';
+import { handleSubmit, animationStartFunction, animationEndFunction } from '../utils/utils.js';
 
 //id профиля пользователя храним глобально
 export let profileId = '';
@@ -15,6 +15,15 @@ export let profileId = '';
 //-----------------------------------------------------------------
 // Экземпляры классов - модальные окна и инфо о пользователе
 //-----------------------------------------------------------------
+//экземпляр класса Api
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
+  headers: {
+    authorization: '72c9f5e3-e302-4291-9e92-5cdf6c091286',
+    'Content-Type': 'application/json'
+  }
+});
+
 //создать экземпляр класса zoom карточки, обращаться к классу нельзя, только к экземпляру!
 const popupWithImage = new PopupWithImage('.popup_zoom');
 popupWithImage.setEventListeners();//запустить cлушатель на крестик
