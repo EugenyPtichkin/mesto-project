@@ -18,4 +18,8 @@ export default class UserInfo {
         this._infoItem.textContent = info;
         this._avatarItem.src = avatar;
     }
+    
+    setAvatarInfo({avatar}) {
+        this._avatarItem.src = avatar;
+    }
 }

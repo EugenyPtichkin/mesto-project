@@ -26,6 +26,11 @@ popupAddCardForm.setEventListeners();//запустить cлушатель на
 const popupProfileForm = new PopupWithForm('.popup_profile', handlePopupProfile);
 popupProfileForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
 
+//создать экземпляр класса формы аватара
+const popupAvatarForm = new PopupWithForm('.popup_avatar-update', handlePopupAvatar);
+popupAvatarForm.setEventListeners();//запустить cлушатель на крестик + отработка submit + запрет на сброс формы evt.preventDefault()
+
+
 //создать экземпляр класса с данными о пользователе
 const userInfo = new UserInfo('.profile__name', '.profile__text', '.profile__image');
 
@@ -46,7 +51,7 @@ openProfileBtn.addEventListener('click', () => {
   })
 });
 
-//внешяя функция формы для редакции профиля
+//внешняя функция формы для редакции профиля
 function handlePopupProfile(formData) {
   api.changeUserInfo(formData.user_name, formData.user_occupation)
     .then((userData) => {
@@ -57,6 +62,37 @@ function handlePopupProfile(formData) {
       });
       //Закрыть окно попапа после успешного ответа от сервера
       popupProfileForm.close();
+    });
+}
+
+//-----------------------------------------------------------------
+// Обслуживание редакции аватара профиля
+//-----------------------------------------------------------------
+// Ссылка на окно редакции карточки
+//const avatarPopup = document.querySelector('.popup_avatar-update');
+// Форма ввода карточки в DOM
+//const formAvatarElement = avatarPopup.querySelector('.popup__form');
+// Поля ввода формы профиля в DOM 
+//export const avatarLinkInput = formAvatarElement.querySelector('.popup__input_link');
+//const changeAvatarButton = formAvatarElement.querySelector('.popup__button-submit');
+
+// Запуск функции редакции профиля по нажатию на аватар
+const newAvatarBtn = document.querySelector('.profile__button-avatar');
+//запуск функций добавления карточки по нажатию на кнопки
+newAvatarBtn.addEventListener('click', () => {
+//  changeAvatarButton.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
+  popupAvatarForm.open();
+});
+
+//внешняя функция формы для редакции аватара
+function handlePopupAvatar(formData) {
+  api.changeAvatar(formData['img-link'])
+    .then((avatarData) => {
+      userInfo.setAvatarInfo({
+        avatar: avatarData.avatar
+      });
+      //Закрыть окно попапа после успешного ответа от сервера
+      popupAvatarForm.close();
     });
 }
 
@@ -206,6 +242,20 @@ const popupEditProfileValidator = new FormValidator({
   document.querySelector('.popup_profile') //ссылка на форму открывающегося окна
 );
 
+const popupChangeAvatarValidator = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-submit',
+  inactiveButtonClass: 'popup__button-submit_inactive',
+  inputErrorClass: 'popup__input_type-error',
+  errorClass: 'popup__input-error_active'
+},
+  document.querySelector('.popup_avatar-update') //ссылка на форму открывающегося окна
+);
+
 //Включение валидации для вновь открытого модального окна с формами ввода
 popupAddCardValidator.enableValidation();
 popupEditProfileValidator.enableValidation();
+popupChangeAvatarValidator.enableValidation();
+
+
+
