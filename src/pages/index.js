@@ -8,7 +8,7 @@ import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import { handleSubmit, animationStartFunction, animationEndFunction } from '../utils/utils.js';
-import {openProfileBtn, profileInputs, newAvatarBtn, openCardBtn, buttonDelete} from '../utils/constants.js';
+import {openProfileBtn, newAvatarBtn, openCardBtn, buttonDelete} from '../utils/constants.js'; //profileInputs
 import {validatorObject, addSelector, profileSelector, avatarSelector} from '../utils/constants.js';
 
 //id профиля пользователя храним глобально
@@ -72,10 +72,12 @@ openProfileBtn.addEventListener('click', () => {
   popupProfileForm.open();
   popupEditProfileValidator.resetValidation();
   //formValidators['.popup_profile'].resetValidation();
-  const userPreviousData = userInfo.getUserInfo();
-  profileInputs.forEach((input) => {
-    input.value = userPreviousData[input.name];
-  })
+  
+  popupProfileForm.setInputValues(userInfo.getUserInfo());   //заполнение формы методом класса
+//  const userPreviousData = userInfo.getUserInfo();
+//  profileInputs.forEach((input) => {
+//    input.value = userPreviousData[input.name];
+//  })
 });
 
 //внешняя функция формы для редакции профиля

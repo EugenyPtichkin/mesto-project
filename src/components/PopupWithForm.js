@@ -31,6 +31,12 @@ export default class PopupWithForm extends Popup {
         return formInputsValues;
     }
 
+    setInputValues(data) {  //перебирая по всем полям ввода устанавливаем исходные значения
+        this._formInputs.forEach((input) => {
+            input.value = data[input.name];
+        });        
+    }
+
     setEventListeners() {
         super.setEventListeners();
         this._formItem.addEventListener('submit', (evt) => { //дополнительно вызываем внешний метод отправки данных формы

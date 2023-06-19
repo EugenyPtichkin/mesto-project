@@ -1,7 +1,7 @@
 //кнопка открытия окна профиля
 export const openProfileBtn = document.querySelector('.profile__button-edit');
-const profilePopup = document.querySelector('.popup_profile');
-export const profileInputs = profilePopup.querySelectorAll('.popup__input');
+//const profilePopup = document.querySelector('.popup_profile');
+//export const profileInputs = profilePopup.querySelectorAll('.popup__input');
 
 //редакция аватара профиля по нажатию на кнопку под аватаром
 export const newAvatarBtn = document.querySelector('.profile__button-avatar');
