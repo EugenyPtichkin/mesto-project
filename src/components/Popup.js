@@ -3,21 +3,23 @@ export default class Popup {
         this._popupSelector = popupSelector;
         this._popupItem = document.querySelector(this._popupSelector);
         this._closeBtn = this._popupItem.querySelector('.popup__button-close');
+        this._handleEscClose = this._handleEscClose.bind(this);
+        this._closePopupModalListener = this._closePopupModalListener.bind(this);
     }
     open() {
         this._popupItem.classList.add('popup_opened');
         // Закрытие модального окна при нажатии на Esc на документе! и должна быть стрелочной иначе this=document! 
-        document.addEventListener('keydown', (evt) => this._handleEscClose(evt));
+        document.addEventListener('keydown', this._handleEscClose);
         // Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия и стрелочная иначе this=_popupItem
-        this._popupItem.addEventListener("click", (evt) => this._closePopupModalListener(evt));
+        this._popupItem.addEventListener("click", this._closePopupModalListener);
     }
 
     close() {
         this._popupItem.classList.remove('popup_opened');
         // Закрытие модального окна при нажатии на Esc на документе!  и должна быть стрелочной иначе this=document! 
-        document.removeEventListener('keydown', (evt) => this._handleEscClose(evt));
+        document.removeEventListener('keydown', this._handleEscClose);
         // Закрытие модального окна по нажатию кнопкой мыши вне окна после его открытия и стрелочная иначе this=_popupItem
-        this._popupItem.removeEventListener("click", (evt) => this._closePopupModalListener(evt)); 
+        this._popupItem.removeEventListener("click", this._closePopupModalListener); 
     }
 
     _handleEscClose(evt) {

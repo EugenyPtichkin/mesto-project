@@ -9,14 +9,15 @@ export default class UserInfo {
     }
     getUserInfo() {
         return {
-            user_name: this._nameItem.textContent,      //свойства должны быть = name в html!
-            user_occupation: this._infoItem.textContent //свойства должны быть = name в html!
+            user_name: this._nameItem.textContent,      //свойства должны быть = name из html!
+            user_occupation: this._infoItem.textContent //свойства должны быть = name из html!
         }
     }
     setUserInfo({name, info, avatar}) {
         this._nameItem.textContent = name;
         this._infoItem.textContent = info;
-        this._avatarItem.src = avatar;
+        //this._avatarItem.src = avatar;
+        this.setAvatarInfo({avatar});
     }
     
     setAvatarInfo({avatar}) {
