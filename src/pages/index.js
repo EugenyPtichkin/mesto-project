@@ -8,6 +8,8 @@ import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import { handleSubmit, animationStartFunction, animationEndFunction } from '../utils/utils.js';
+import {openProfileBtn, profileInputs, newAvatarBtn, openCardBtn, buttonDelete} from '../utils/constants.js';
+import {validatorObject, addSelector, profileSelector, avatarSelector} from '../utils/constants.js';
 
 //id профиля пользователя храним глобально
 export let profileId = '';
@@ -65,11 +67,6 @@ function handlePopupDelete() { };//никакого submit делать не н�
 //-----------------------------------------------------------------
 // Обслуживание редакции профиля
 //-----------------------------------------------------------------
-//кнопка открытия окна профиля
-const openProfileBtn = document.querySelector('.profile__button-edit');
-const profilePopup = document.querySelector('.popup_profile');
-const profileInputs = profilePopup.querySelectorAll('.popup__input');
-
 //запуск слушателя редакции профиля по нажатию на кнопку
 openProfileBtn.addEventListener('click', () => {
   popupProfileForm.open();
@@ -101,8 +98,6 @@ function handlePopupProfile(formData, evt) {
 //-----------------------------------------------------------------
 // Обслуживание редакции аватара профиля
 //-----------------------------------------------------------------
-//редакция аватара профиля по нажатию на кнопку под аватаром
-const newAvatarBtn = document.querySelector('.profile__button-avatar');
 //запуск слушателя добавления карточки по нажатию на кнопки
 newAvatarBtn.addEventListener('click', () => {
   popupAvatarForm.open();
@@ -127,8 +122,6 @@ function handlePopupAvatar(formData, evt) {
 //-----------------------------------------------------------------
 // Обслуживание добавления новой карточки
 //-----------------------------------------------------------------
-//кнопка открытия окна новой карточки
-const openCardBtn = document.querySelector('.profile__button-add');
 //запуск слушателя добавления карточки по нажатию на кнопку
 openCardBtn.addEventListener('click', () => {
   popupAddCardForm.open();
@@ -191,11 +184,6 @@ function handleCardClick(cardName, cardLink) {
 }
 
 // Обслуживание модального окна подтверждения удаления карточки
-// Ссылка на окно удаления карточки
-const popupDelete = document.querySelector('.popup_delete');
-// Кнопка подтверждения
-const buttonDelete = popupDelete.querySelector('.popup__button-submit');
-
 // Промисификация кнопки удаления карточки
 function handleDeleteAccept() {
   return new Promise((resolve) => {
@@ -290,38 +278,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 animationStartFunction();
 animationEndFunction();
 
+
 //-----------------------------------------------------------------
 // Запустить валидацию через класс для модальных окон с формами ввода
 //-----------------------------------------------------------------
-const popupAddCardValidator = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-submit',
-  inactiveButtonClass: 'popup__button-submit_inactive',
-  inputErrorClass: 'popup__input_type-error',
-  errorClass: 'popup__input-error_active'
-},
-  document.querySelector('.popup_add') //ссылка на форму открывающегося окна
-);
-
-const popupEditProfileValidator = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-submit',
-  inactiveButtonClass: 'popup__button-submit_inactive',
-  inputErrorClass: 'popup__input_type-error',
-  errorClass: 'popup__input-error_active'
-},
-  document.querySelector('.popup_profile') //ссылка на форму открывающегося окна
-);
-
-const popupChangeAvatarValidator = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-submit',
-  inactiveButtonClass: 'popup__button-submit_inactive',
-  inputErrorClass: 'popup__input_type-error',
-  errorClass: 'popup__input-error_active'
-},
-  document.querySelector('.popup_avatar-update') //ссылка на форму открывающегося окна
-);
+const popupAddCardValidator = new FormValidator(validatorObject, addSelector);
+const popupEditProfileValidator = new FormValidator(validatorObject, profileSelector);
+const popupChangeAvatarValidator = new FormValidator(validatorObject, avatarSelector);
 
 //Включение валидации для вновь открытого модального окна с формами ввода
 popupAddCardValidator.enableValidation();
