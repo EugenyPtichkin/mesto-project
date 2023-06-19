@@ -78,9 +78,7 @@ export default class Card {
     this._checkPreviousLikes();
         
     //установить слушатели событий для новой карточки через внешние методы
-    this._setCardEventListener();
-    this._setLikeEventListener();
-    this._setDeleteEventListener();
+    this._setEventListeners();
 
     return this._element;
   }
@@ -89,17 +87,15 @@ export default class Card {
     this._element.remove();
   }
 
-  _setCardEventListener() {
+  _setEventListeners() {
     this._image.addEventListener('click', () => {
       this._handleCardClick(this._placeValue, this._linkValue); 
     })
-  }
-  _setLikeEventListener() {
+      
     this._cardLike.addEventListener('click', () => {
       this._handleLikeClick(this._cardId, this._checkPreviousLikes(), this);
     })
-  }
-  _setDeleteEventListener() {
+
     this._cardDelete.addEventListener('click', () => {
       this._handleDeleteClick(this._cardId, this);
     })

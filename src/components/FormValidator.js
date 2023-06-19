@@ -39,41 +39,50 @@ export default class FormValidator {
     };
   }
 
-  _hasInvalidInput(inputList) { //хотя бы одно поле списка не имеет флаг valid=true
-    return inputList.some((listItem) => {
+  _hasInvalidInput() { //хотя бы одно поле списка не имеет флаг valid=true
+    return this._inputList.some((listItem) => {
       return !listItem.validity.valid;
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
-      buttonElement.classList.add(this.inactiveButtonClass); // притушить кнопку submit
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this._buttonElement.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
+      this._buttonElement.classList.add(this.inactiveButtonClass); // притушить кнопку submit
     } else {
-      buttonElement.disabled = false;   // снять свойство неактивно
-      buttonElement.classList.remove(this.inactiveButtonClass); // разрешить кнопку submit 
+      this._buttonElement.disabled = false;   // снять свойство неактивно
+      this._buttonElement.classList.remove(this.inactiveButtonClass); // разрешить кнопку submit 
     };
   }
 
   _setEventListeners() {
-    const inputList = Array.from(this.formSelector.querySelectorAll(this.inputSelector));  //отслеживать ввод на всех полях форм
-    const buttonElement = this.formSelector.querySelector(this.submitButtonSelector);
-    inputList.forEach((inputElement) => { // тут ТОЛЬКО стрелочные функции, иначе потеряем контекст this!!!
+    this._inputList = Array.from(this.formSelector.querySelectorAll(this.inputSelector));  //отслеживать ввод на всех полях форм
+    this._buttonElement = this.formSelector.querySelector(this.submitButtonSelector);
+    this._inputList.forEach((inputElement) => { // тут ТОЛЬКО стрелочные функции, иначе потеряем контекст this!!!
 
       //только для кнопок submit с формами ввода popup__input
-      if (this.inputSelector) {           // при первом запуске
-        buttonElement.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
-        buttonElement.classList.add(this.inactiveButtonClass); // притушить кнопку submit 
-      }
+      // if (this.inputSelector) {                 // при первом запуске
+      //   this._buttonElement.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
+      //   this._buttonElement.classList.add(this.inactiveButtonClass); // притушить кнопку submit 
+      // }
 
-      inputElement.addEventListener('input', () => {        // по каждому нажатию на клавишу 
-        this._toggleButtonState(inputList, buttonElement);  // менять состояние кнопки submit 
-        this._checkInputValidity(inputElement);             // проверять валидность ввода 
+      inputElement.addEventListener('input', () => {  // по каждому нажатию на клавишу 
+        this._toggleButtonState();                    // менять состояние кнопки submit   
+        this._checkInputValidity(inputElement);       // проверять валидность ввода 
       });
     });
   }
 
-  //публичная функция
+  //публичные функции  
+  resetValidation() { 
+    this._buttonElement.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
+    this._buttonElement.classList.add(this.inactiveButtonClass); // притушить кнопку submit 
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
   enableValidation() {
     this._setEventListeners();
   }

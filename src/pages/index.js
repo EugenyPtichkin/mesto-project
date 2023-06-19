@@ -70,6 +70,7 @@ function handlePopupDelete() { };//никакого submit делать не н�
 //запуск слушателя редакции профиля по нажатию на кнопку
 openProfileBtn.addEventListener('click', () => {
   popupProfileForm.open();
+  popupEditProfileValidator.resetValidation();
   const userPreviousData = userInfo.getUserInfo();
   profileInputs.forEach((input) => {
     input.value = userPreviousData[input.name];
@@ -101,6 +102,7 @@ function handlePopupProfile(formData, evt) {
 //запуск слушателя добавления карточки по нажатию на кнопки
 newAvatarBtn.addEventListener('click', () => {
   popupAvatarForm.open();
+  popupChangeAvatarValidator.resetValidation();
 });
 
 //внешняя функция формы для редакции аватара
@@ -125,6 +127,7 @@ function handlePopupAvatar(formData, evt) {
 //запуск слушателя добавления карточки по нажатию на кнопку
 openCardBtn.addEventListener('click', () => {
   popupAddCardForm.open();
+  popupAddCardValidator.resetValidation();
 });
 
 //внешяя функция формы для отсылки карточки
