@@ -81,24 +81,18 @@ openProfileBtn.addEventListener('click', () => {
 });
 
 //внешняя функция формы для редакции профиля
-function handlePopupProfile(formData, evt) {
+function handlePopupProfile(formData) {
   // создаем функцию, которая возвращает промис, так как любой запрос возвращает его 
   function makeRequest() {
     return api.changeUserInfo(formData.user_name, formData.user_occupation)
       .then((userData) => {
-        // userInfo.setUserInfo({
-        //   name: userData.name,
-        //   about: userData.about,
-        //   avatar: userData.avatar,
-        //   _id: userData._id
-        // });
         userInfo.setUserInfo(userData);
         //Закрыть окно попапа после успешного ответа от сервера
-        popupProfileForm.close();
+        //popupProfileForm.close(); //выполнено далее внутри функции handleSubmit
       });
   }
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
-  handleSubmit(makeRequest, evt, popupProfileForm);
+  handleSubmit(makeRequest, popupProfileForm);
 }
 
 //-----------------------------------------------------------------
@@ -112,7 +106,7 @@ newAvatarBtn.addEventListener('click', () => {
 });
 
 //внешняя функция формы для редакции аватара
-function handlePopupAvatar(formData, evt) {
+function handlePopupAvatar(formData) {
   function makeRequest() {
     return api.changeAvatar(formData['img-link'])
       .then((avatarData) => {
@@ -120,11 +114,11 @@ function handlePopupAvatar(formData, evt) {
           avatar: avatarData.avatar
         });
         //Закрыть окно попапа после успешного ответа от сервера
-        popupAvatarForm.close();
+        //popupAvatarForm.close(); //выполнено далее внутри функции handleSubmit
       });
   }
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
-  handleSubmit(makeRequest, evt, popupAvatarForm);
+  handleSubmit(makeRequest, popupAvatarForm);
 }
 
 //-----------------------------------------------------------------
@@ -138,7 +132,7 @@ openCardBtn.addEventListener('click', () => {
 });
 
 //внешяя функция формы для отсылки карточки
-function handlePopupAddCard(formData, evt) {
+function handlePopupAddCard(formData) {
   function makeRequest() {
     return api.addNewCard(formData['place-name'], formData['img-link'])
       .then((cardData) => {
@@ -147,11 +141,11 @@ function handlePopupAddCard(formData, evt) {
 
         cardList.addItem(newAddedCard);   //cardSingle
         //Закрыть окно попапа после успешного ответа от сервера
-        popupAddCardForm.close();
+        //popupAddCardForm.close(); //выполнено далее внутри функции handleSubmit
       });
   }
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
-  handleSubmit(makeRequest, evt, popupAddCardForm);
+  handleSubmit(makeRequest, popupAddCardForm);
 }
 
 //----------------------------------------------------------
@@ -246,12 +240,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(userData);  //отображаем данные пользователя в логе
     console.log(cards);     //отображаем текущие карточки в логе
     // тут установка данных пользователя через класс
-    // userInfo.setUserInfo({
-    //   name: userData.name,
-    //   about: userData.about,
-    //   avatar: userData.avatar,
-    //   _id: userData._id
-    // });
     userInfo.setUserInfo(userData); //деструктуризация ответа от сервера
     profileId = userData._id;
 
