@@ -71,6 +71,7 @@ function handlePopupDelete() { };//никакого submit делать не н�
 openProfileBtn.addEventListener('click', () => {
   popupProfileForm.open();
   popupEditProfileValidator.resetValidation();
+  //formValidators['.popup_profile'].resetValidation();
   const userPreviousData = userInfo.getUserInfo();
   profileInputs.forEach((input) => {
     input.value = userPreviousData[input.name];
@@ -102,7 +103,8 @@ function handlePopupProfile(formData, evt) {
 //запуск слушателя добавления карточки по нажатию на кнопки
 newAvatarBtn.addEventListener('click', () => {
   popupAvatarForm.open();
-  popupChangeAvatarValidator.resetValidation();
+  popupChangeAvatarValidator.resetValidation(); 
+  //formValidators['.popup_avatar-update'].resetValidation();
 });
 
 //внешняя функция формы для редакции аватара
@@ -128,6 +130,7 @@ function handlePopupAvatar(formData, evt) {
 openCardBtn.addEventListener('click', () => {
   popupAddCardForm.open();
   popupAddCardValidator.resetValidation();
+  //formValidators['.popup_add'].resetValidation();
 });
 
 //внешяя функция формы для отсылки карточки
@@ -294,5 +297,29 @@ popupAddCardValidator.enableValidation();
 popupEditProfileValidator.enableValidation();
 popupChangeAvatarValidator.enableValidation();
 
+/*
+//-----------------------------------------------------------------
+// Все валидаторы через один объект
+//-----------------------------------------------------------------
+const formValidators = {};
 
+// Включение валидации
+const enableValidation = (validatorObject) => {
+  const formList = Array.from(document.querySelectorAll(validatorObject.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name');
 
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validatorObject);
+
+//formValidators[ profileForm.getAttribute('name') ].resetValidation();
+// или можно использовать строку (ведь Вы знаете, какой атрибут `name` у каждой формы)
+//formValidators['profile-form'].resetValidation();
+*/

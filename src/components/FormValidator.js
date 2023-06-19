@@ -59,13 +59,6 @@ export default class FormValidator {
     this._inputList = Array.from(this.formSelector.querySelectorAll(this.inputSelector));  //отслеживать ввод на всех полях форм
     this._buttonElement = this.formSelector.querySelector(this.submitButtonSelector);
     this._inputList.forEach((inputElement) => { // тут ТОЛЬКО стрелочные функции, иначе потеряем контекст this!!!
-
-      //только для кнопок submit с формами ввода popup__input
-      // if (this.inputSelector) {                 // при первом запуске
-      //   this._buttonElement.disabled = true;    // установить свойство неактивно, чтобы заблокировать Enter
-      //   this._buttonElement.classList.add(this.inactiveButtonClass); // притушить кнопку submit 
-      // }
-
       inputElement.addEventListener('input', () => {  // по каждому нажатию на клавишу 
         this._toggleButtonState();                    // менять состояние кнопки submit   
         this._checkInputValidity(inputElement);       // проверять валидность ввода 
