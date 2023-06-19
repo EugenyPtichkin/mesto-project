@@ -39,28 +39,29 @@ export function request(url, options) {
 /* -- Смена надписи кнопки при общении с сервером -- */
 /* ------------------------------------------------- */
 // можно сделать универсальную функцию управления текстом кнопки с 3 и 4 необязательными аргументами
-function renderLoading(isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
-  if (isLoading) {
-    button.textContent = loadingText;
-  } else {
-    button.textContent = buttonText;
-  }
-}
+// function renderLoading(isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
+//   if (isLoading) {
+//     button.textContent = loadingText;
+//   } else {
+//     button.textContent = buttonText;
+//   }
+// }
 
 /* -------------------------------------------------------------------------------------------------------- */
 /* -- Универсальная функция, которая принимает функцию запроса, объект события и текст во время загрузки -- */
 /* -------------------------------------------------------------------------------------------------------- */
 // можно сделать универсальную функцию, которая принимает функцию запроса, объект события и текст во время загрузки
-export function handleSubmit(request, evt, loadingText = "Сохранение...") {
+export function handleSubmit(request, evt, popupWithForm, loadingText = "Сохранение...") {
   // всегда нужно предотвращать перезагрузку формы при сабмите
   evt.preventDefault();
 
   // универсально получаем кнопку сабмита из `evt`
-  const submitButton = evt.submitter;
+//  const submitButton = evt.submitter;
   // записываем начальный текст кнопки до вызова запроса
-  const initialText = submitButton.textContent;
+//  const initialText = submitButton.textContent;
   // изменяем текст кнопки до вызова запроса
-  renderLoading(true, submitButton, initialText, loadingText);
+//  renderLoading(true, submitButton, initialText, loadingText);
+  popupWithForm.renderLoading(true, loadingText);
   request()
     .then(() => {
       // любую форму нужно очищать после успешного ответа от сервера
@@ -73,6 +74,7 @@ export function handleSubmit(request, evt, loadingText = "Сохранение..
     })
     // в каждом запросе в `finally` нужно возвращать обратно начальный текст кнопки
     .finally(() => {
-      renderLoading(false, submitButton, initialText);
+      //renderLoading(false, submitButton, initialText);
+      popupWithForm.renderLoading(false);
     });
 }

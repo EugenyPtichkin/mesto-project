@@ -96,7 +96,7 @@ function handlePopupProfile(formData, evt) {
       });
   }
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
-  handleSubmit(makeRequest, evt);
+  handleSubmit(makeRequest, evt, popupProfileForm);
 }
 
 //-----------------------------------------------------------------
@@ -122,7 +122,7 @@ function handlePopupAvatar(formData, evt) {
       });
   }
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
-  handleSubmit(makeRequest, evt);
+  handleSubmit(makeRequest, evt, popupAvatarForm);
 }
 
 //-----------------------------------------------------------------
@@ -145,11 +145,11 @@ function handlePopupAddCard(formData, evt) {
 
         cardList.addItem(newAddedCard);   //cardSingle
         //Закрыть окно попапа после успешного ответа от сервера
-        popupAddCardForm.close(); //closePopup(cardPopup);
+        popupAddCardForm.close();
       });
   }
   // вызываем универсальную функцию, передавая в нее запрос, событие и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
-  handleSubmit(makeRequest, evt);
+  handleSubmit(makeRequest, evt, popupAddCardForm);
 }
 
 //----------------------------------------------------------
@@ -240,7 +240,7 @@ function createCard(dataCard, id) {
 // -- Ждем окончания загрузки и профиля и карточек с сервера --
 // ------------------------------------------------------------
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards]) => {// прием данных с деструтиризацией 
+  .then(([userData, cards]) => {// прием данных с деструктиризацией 
     console.log(userData);  //отображаем данные пользователя в логе
     console.log(cards);     //отображаем текущие карточки в логе
     // тут установка данных пользователя через класс
