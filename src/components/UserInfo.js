@@ -13,9 +13,9 @@ export default class UserInfo {
             user_occupation: this._infoItem.textContent //свойства должны быть = name из html!
         }
     }
-    setUserInfo({name, info, avatar}) {
+    setUserInfo({name, about, avatar, _id}) {
         this._nameItem.textContent = name;
-        this._infoItem.textContent = info;
+        this._infoItem.textContent = about;
         //this._avatarItem.src = avatar;
         this.setAvatarInfo({avatar});
     }

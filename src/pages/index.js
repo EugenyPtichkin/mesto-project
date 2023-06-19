@@ -84,11 +84,13 @@ function handlePopupProfile(formData, evt) {
   function makeRequest() {
     return api.changeUserInfo(formData.user_name, formData.user_occupation)
       .then((userData) => {
-        userInfo.setUserInfo({
-          name: userData.name,
-          info: userData.about,
-          avatar: userData.avatar
-        });
+        // userInfo.setUserInfo({
+        //   name: userData.name,
+        //   about: userData.about,
+        //   avatar: userData.avatar,
+        //   _id: userData._id
+        // });
+        userInfo.setUserInfo(userData);
         //Закрыть окно попапа после успешного ответа от сервера
         popupProfileForm.close();
       });
@@ -140,14 +142,6 @@ function handlePopupAddCard(formData, evt) {
       .then((cardData) => {
         //если удалось отослать на сервер, создаем карточку локально и отображаем      
         const newAddedCard = createCard(cardData, profileId);
-
-        //экземпляр класса Section для отрисовки одной карточки - создан один экземпляр класса выше
-        /*const cardSingle = new Section({
-          items: {},
-          renderer: (cardItem, id) => { } //неважно какой назначить метод, не будет использован
-        },
-          '.cards' //в какую секцию вставлять
-        );*/
 
         cardList.addItem(newAddedCard);   //cardSingle
         //Закрыть окно попапа после успешного ответа от сервера
@@ -250,26 +244,17 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(userData);  //отображаем данные пользователя в логе
     console.log(cards);     //отображаем текущие карточки в логе
     // тут установка данных пользователя через класс
-    userInfo.setUserInfo({
-      name: userData.name,
-      info: userData.about,
-      avatar: userData.avatar
-    });
+    // userInfo.setUserInfo({
+    //   name: userData.name,
+    //   about: userData.about,
+    //   avatar: userData.avatar,
+    //   _id: userData._id
+    // });
+    userInfo.setUserInfo(userData); //деструктуризация ответа от сервера
     profileId = userData._id;
 
     // тут отрисовка карточек
     cards.reverse(); //более новые карточки вперед    
-
-    //экземпляр класса Section для отрисовки всех карточек с сервера на странице объявляю когда появляется cards
-    /*const cardList = new Section({
-      items: cards,
-      renderer: (cardItem, id) => { //вызываем свой же метод (append), в него передаем разметку одной карточки
-        cardList.addItem(createCard(cardItem, id));
-      }
-    },
-      '.cards' //в какую секцию вставлять
-    );*/
-
     //отрисовка карточек с сервера через метод класса CardList от имени текущего пользователя
     cardList.renderItems(cards, profileId);
 
